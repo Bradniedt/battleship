@@ -40,5 +40,19 @@ class BoardTest < Minitest::Test
     assert_equal 4, new_board.board_hash["1"].length
   end
 
+  def test_it_can_display_a_board
+    new_board = Board.new
+    binding.pry
+    expected =
+"===========
+. 1 2 3 4
+A
+B
+C
+D
+==========="
+    assert_equal expected, new_board.display
+  end
+
 
 end
