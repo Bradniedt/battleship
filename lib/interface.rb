@@ -1,10 +1,11 @@
  require './lib/game.rb'
 
 class Interface
-  attr_reader :input
+  attr_accessor :input #might need to be changed back to reader
 
   def initialize
     @input
+    @new_game
   end
 
   def instruction
@@ -17,16 +18,16 @@ class Interface
 
   def evaluate_input
     if @input == "p"
-      new_game = Game.new
+      @new_game = Game.new
     elsif  @input == "i"
       read_instructions
     elsif @input == "q"
-      #quit the game
+      p "Thank you for playing!"
     end
   end
 
   def read_instructions
-    puts "ipsum"
+    p "ipsum"
   end
 
   def play
