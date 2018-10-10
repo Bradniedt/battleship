@@ -8,41 +8,34 @@ require './lib/board.rb'
 class BoardTest < Minitest::Test
 
   def test_it_exists
+
     new_board = Board.new
     assert_instance_of Board , new_board
   end
 
-  def test_it_has_default_length
-    new_board = Board.new
-    assert_equal 4, new_board.length
-  end
+  def test_it_can_create_a_board
 
-  def test_it_has_default_width
     new_board = Board.new
-    assert_equal 4, new_board.width
-  end
-
-  def test_it_can_create_default_board
-    new_board = Board.new
-    assert_instance_of Hash, new_board.board_hash
+    assert_instance_of Hash, new_board.create_board(4)
   end
 
   def test_has_the_correct_hash_length
     new_board = Board.new
-
+    new_board.create_board(4)
     expected = ["1", "2", "3", "4"]
-
     assert_equal expected, new_board.board_hash.keys
   end
 
   def test_it_has_the_correct_width
     new_board = Board.new
+    new_board.create_board(4)
     assert_equal 4, new_board.board_hash["1"].length
   end
 
   def test_it_can_display_a_board
+
     new_board = Board.new
-    binding.pry
+    new_board.create_board(4)
     expected =
 "===========
 . 1 2 3 4
@@ -53,6 +46,9 @@ D
 ==========="
     assert_equal expected, new_board.display
   end
-
+  # def test_board_stores_new_board
+  #   new_board = Board.new
+  #   assert_instance_of Hash,
+  # end
 
 end

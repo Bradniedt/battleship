@@ -7,7 +7,6 @@ require 'pry'
  # new_interface = Interface.new
  # new_interface.instruction
 ship = Ship.new("A2", "A2")
-board = Board.new(ship)
-board.registers_hit("A2")
+board = Board.new
+board.create_board(4)
 board.display
-binding.pry

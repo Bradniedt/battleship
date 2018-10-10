@@ -2,18 +2,17 @@ require "./lib/ship.rb"
 class Board
   attr_reader :length, :width, :board_hash
 
-  def initialize(ship_one)
+  def initialize
     @length = 4
-    @board_hash = create_board(@length)
-    @ship_one = ship_one
+    @board_hash 
   end
 
    def create_board(length)
-     board = Hash.new
+     @board_hash = Hash.new
      length.times do |i|
-       board["#{i + 1}"] = Array.new(length, " ")
+       @board_hash["#{i + 1}"] = Array.new(length, " ")
      end
-     @board_hash = board
+     @board_hash
    end
 
    def display
@@ -26,13 +25,22 @@ p "D #{@board_hash["4"].join(" ")}"
 p "==========="
    end
 
-   def registers_hit(coordinate)
-     row_hash = {"A" => 1, "B" => 2, "C" => 3, "D" => 4}
-     places = coordinate.chars
-     row = row_hash[places[0]]
-     column = row_hash[places[1]]
-     @board_hash[row][column] = "H"
-   end
+
+   # def place_ship(one_coordinate)
+   #   row_hash = {"A" => 1, "B" => 2, "C" => 3, "D" => 4}
+   #   places = one_coordinate.chars
+   #   row = row_hash[places[0]]
+   #   column = row_hash[places[1]]
+   #   @board_hash[row] = "S"
+   # end
+
+   # def registers_hit(coordinate)
+   #   row_hash = {"A" => 1, "B" => 2, "C" => 3, "D" => 4}
+   #   places = coordinate.chars
+   #   row = row_hash[places[0]]
+   #   column = row_hash[places[1]]
+   #   @board_hash[row][column] = "H"
+   # end
 
 
 

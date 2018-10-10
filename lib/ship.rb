@@ -5,9 +5,10 @@ class Ship
     @ship_end = y
     @hit_count = 0
   end
+  def size(ship_start, ship_end)
 
-  def gets_hit(coordinate)
-    @hit_count += 1
+
   end
+
 
 end
