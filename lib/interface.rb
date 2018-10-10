@@ -28,6 +28,7 @@ class Interface
 
   def read_instructions
     p "ipsum"
+    instruction
   end
 
   def play
