@@ -46,9 +46,21 @@ D
 ==========="
     assert_equal expected, new_board.display
   end
-  # def test_board_stores_new_board
-  #   new_board = Board.new
-  #   assert_instance_of Hash,
-  # end
+
+  def test_it_can_have_a_ship
+    skip
+    new_board = Board.new
+    new_board.create_board(4)
+    ship = Ship.new("A2", "A2")
+    expected =
+"===========
+. 1 2 3 4
+A   S
+B
+C
+D
+==========="
+  assert_equal expected, new_board.place_ship("A2")
+  end
 
 end

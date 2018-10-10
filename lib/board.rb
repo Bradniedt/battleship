@@ -4,7 +4,7 @@ class Board
 
   def initialize
     @length = 4
-    @board_hash 
+    @board_hash
   end
 
    def create_board(length)
@@ -26,13 +26,15 @@ p "==========="
    end
 
 
-   # def place_ship(one_coordinate)
-   #   row_hash = {"A" => 1, "B" => 2, "C" => 3, "D" => 4}
-   #   places = one_coordinate.chars
-   #   row = row_hash[places[0]]
-   #   column = row_hash[places[1]]
-   #   @board_hash[row] = "S"
-   # end
+   def place_ship(one_coordinate)
+     row_hash = {"A" => 1, "B" => 2, "C" => 3, "D" => 4}
+     places = one_coordinate.chars
+     row = row_hash[places[0]]
+     row.to_s
+     column = row_hash[places[1]]
+     binding.pry
+     @board_hash[row] = "S"
+   end
 
    # def registers_hit(coordinate)
    #   row_hash = {"A" => 1, "B" => 2, "C" => 3, "D" => 4}

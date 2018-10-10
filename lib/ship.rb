@@ -1,5 +1,6 @@
 require "./lib/board.rb"
 class Ship
+
   def initialize(x, y)
     @ship_start = x
     @ship_end = y
