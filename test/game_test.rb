@@ -12,13 +12,4 @@ class GameTest < Minitest::Test
     assert_instance_of Game, new_game
   end
 
-  def test_it_creates_player_board
-    new_game = Game.new
-    assert_instance_of Board, new_game.player_board
-  end
-
-  def test_it_creates_computer_board
-    new_game = Game.new
-    assert_instance_of Board, new_game.computer_board
-  end
 end
