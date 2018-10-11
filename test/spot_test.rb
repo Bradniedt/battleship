@@ -25,4 +25,11 @@ class SpotTest < Minitest::Test
     assert spot.occupied?
   end
 
+  def test_its_contents_are_empty
+    spot = Spot.new("A2")
+    assert_equal " ", spot.contents
+  end
+
+
+
 end

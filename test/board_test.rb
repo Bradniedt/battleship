@@ -3,20 +3,20 @@ SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry'
-require './lib/board.rb'
+require './lib/board'
 
 class BoardTest < Minitest::Test
 
   def test_it_exists
 
-    new_board = Board.new
-    assert_instance_of Board , new_board
+    board = Board.new
+    assert_instance_of Board , board
   end
 
   def test_it_can_display_a_board
-
-    new_board = Board.new
-    new_board.create_board(4)
+    skip
+    board = Board.new
+    board.create_board(4)
     expected =
 "===========
 . 1 2 3 4
@@ -25,7 +25,19 @@ B
 C
 D
 ==========="
-    assert_equal expected, new_board.display
+    assert_equal expected, board.display
+  end
+
+  def test_it_can_create_board
+    board = Board.new
+    board.create_board
+    assert_instance_of Hash, board.board
+  end
+
+  def test_it_can_display_a_spots_content
+    board = Board.new
+    board.create_board
+    assert_equal " ", board.board["A1"].contents 
   end
 
 end
