@@ -1,20 +1,21 @@
 class Spot
-attr_reader :state, :ship_container
-  def initialize(state = " ")
-    @state = state
-    @ship_container
+
+  def initialize(name)
+    @name = name
+    @status = false
+    @content = " "
   end
 
-  def gets_hit
-    @state = "H"
+  def occupy
+    @status = true
   end
 
-  def gets_missed
-    @state = "M"
+  def occupied?
+    @status
   end
 
-  def gets_ship(some_ship)
-    @ship_container = some_ship
+  def contents
+    @content
   end
 
 end

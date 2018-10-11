@@ -10,32 +10,26 @@ require './lib/ship.rb'
 class SpotTest < Minitest::Test
 
   def test_it_exists
-    spot = Spot.new()
+    spot = Spot.new("A2")
     assert_instance_of Spot , spot
   end
 
-  def test_it_default_state
-      spot = Spot.new()
-      assert_equal " ", spot.state
+  def test_it_is_not_occupied_by_default
+    spot = Spot.new("A2")
+    refute spot.occupied?
   end
 
-  def test_state_changes_when_hit
-      spot = Spot.new()
-      spot.gets_hit
-      assert_equal "H", spot.state
+  def test_it_can_be_occupied
+    spot = Spot.new("A2")
+    spot.occupy
+    assert spot.occupied?
   end
 
-  def test_state_changes_when_missed
-      spot = Spot.new()
-      spot.gets_missed
-      assert_equal "M", spot.state
+  def test_its_contents_are_empty
+    spot = Spot.new("A2")
+    assert_equal " ", spot.contents
   end
 
-  def test_spot_has_ship
-      spot = Spot.new()
-      ship = Ship.new(2)
-      spot.gets_ship(ship)
-      assert_instance_of Ship, spot.ship_container
-  end
+
 
 end
