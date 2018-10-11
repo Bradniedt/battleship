@@ -16,7 +16,6 @@ class BoardTest < Minitest::Test
   def test_it_can_display_a_board
     skip
     board = Board.new
-    board.create_board(4)
     expected =
 "===========
 . 1 2 3 4
@@ -37,7 +36,7 @@ D
   def test_it_can_display_a_spots_content
     board = Board.new
     board.create_board
-    assert_equal " ", board.board["A1"].contents 
+    assert_equal " ", board.board["A1"].contents
   end
 
 end

@@ -4,7 +4,7 @@ class Board
   attr_reader :board
   def initialize
     @size = 4
-    @row_1_names = ["A1", "A2", "A3", "A4",
+    @coordinates = ["A1", "A2", "A3", "A4",
                     "B1", "B2", "B3", "B4",
                     "C1", "C2", "C3", "C4",
                     "D1", "D2", "D3", "D4"]
@@ -13,7 +13,7 @@ class Board
 
   def create_board
     @board = {}
-    @row_1_names.map do |name|
+    @coordinates.map do |name|
       @board["#{name}"] = Spot.new(name)
     end
   end
@@ -31,13 +31,13 @@ class Board
 
 
    def display
-p "==========="
-p ". 1 2 3 4"
-p "A "
-p "B "
-p "C "
-p "D "
-p "==========="
+    p "==========="
+    p ". 1 2 3 4"
+    p "A "
+    p "B "
+    p "C "
+    p "D "
+    p "==========="
    end
 
 
