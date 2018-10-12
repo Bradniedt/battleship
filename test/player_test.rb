@@ -14,7 +14,6 @@ class PlayerTest < Minitest::Test
 
   def test_it_can_see_board
     new_player = Player.new
-    binding.pry
     assert_instance_of Board, new_player.player_board
   end
 

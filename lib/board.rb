@@ -45,6 +45,7 @@ class Board
        @player_ships << new_ship
        new_ship
      else
+       #need reason for invalidity
        return "Invalid coordinates, pick again!"
      end
 
@@ -63,13 +64,13 @@ computer random coordinate picker:
 def computer_random_coordinate_picker
   coord_1 = @coordinates.sample
   coord_2 = @coordinates.sample
-  return coord_1, coord2
+  validate_spots(coord_1, coord_2)
 end
 
 ---------------------------------------------
 Dan's Validator
 
-JUST FOR PSEUDOCODE - WILL NEED TO PRE-POPULATE
+JUST FOR PSEUDOCODE - WILL NEED TO VALIDATE
 hash_one{"A1" => 1,"B1" => 5,"C1" => 9,
 "D1" => 13,"D2"=> 14,"D3" => 15,"D4" => 16}
 
