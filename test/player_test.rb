@@ -17,4 +17,9 @@ class PlayerTest < Minitest::Test
     assert_instance_of Board, new_player.player_board
   end
 
+  def test_it_can_get_random_coordinates
+    new_player = Player.new
+    assert_equal 1, new_player.computer_placement 
+  end
+
 end

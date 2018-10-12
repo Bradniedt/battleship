@@ -28,4 +28,13 @@ class Game
     # human.player_board.board["#{coordinate_2}"].occupy
   end
 
+  def computer_gets_coordinates_2
+    @computer.place_ship_2(coordinate_1, coordinate_2)
+    # tell player to tell board to tell spot that it is occupied
+    # human.player_board.board["#{coordinate_1}"].occupy
+    # human.player_board.board["#{coordinate_2}"].occupy
+  end
+
+
+
 end
