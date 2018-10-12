@@ -50,9 +50,14 @@ D
     assert_instance_of Ship, board.validate_spots("A2", "B2")
   end
 
-  def it_can_validate_horizontal_coordinates
+  def test_it_can_validate_horizontal_coordinates
     board = Board.new
     assert_instance_of Ship, board.validate_spots("A2", "A3")
+  end
+
+  def test_it_can_reject_bad_coordinates
+    board = Board.new
+    assert_equal "Invalid coordinates, pick again!" , board.validate_spots("A2", "A4")
   end
 
 end

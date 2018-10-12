@@ -1,3 +1,9 @@
+require './lib/board'
+require './lib/ship'
+require './lib/spot'
+require './lib/player'
+require 'pry'
+
 class Ship
 
   def initialize(coordinate_1, coordinate_2)

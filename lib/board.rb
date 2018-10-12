@@ -35,8 +35,6 @@ class Board
        c1 = coordinate_1.chars
        c2 = coordinate_2.chars
        # c1, c2
-     else
-       re_prompt
      end
      if ((c2[0].ord - c1[0].ord).abs == 1) && c1[1] == c2[1]
        new_ship = Ship.new(coordinate_1, coordinate_2)
@@ -46,6 +44,8 @@ class Board
        new_ship = Ship.new(coordinate_1, coordinate_2)
        @player_ships << new_ship
        new_ship
+     else
+       return "Invalid coordinates, pick again!"
      end
 
    end
@@ -56,6 +56,18 @@ end
 
 
 =begin
+
+This allows our current algorithm to work for both computer
+and player placement.
+computer random coordinate picker:
+def computer_random_coordinate_picker
+  coord_1 = @coordinates.sample
+  coord_2 = @coordinates.sample
+  return coord_1, coord2
+end
+
+---------------------------------------------
+Dan's Validator
 
 JUST FOR PSEUDOCODE - WILL NEED TO PRE-POPULATE
 hash_one{"A1" => 1,"B1" => 5,"C1" => 9,

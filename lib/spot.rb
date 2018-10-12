@@ -1,3 +1,9 @@
+require './lib/board'
+require './lib/ship'
+require './lib/spot'
+require './lib/player'
+require 'pry'
+
 class Spot
 
   def initialize(name)
