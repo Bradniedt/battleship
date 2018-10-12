@@ -30,18 +30,53 @@ class Board
     p  "===========\n. 1 2 3 4\nA\nB\nC\nD\n==========="
    end
 
-   def validate_spots(coordinate_1, coordinate_2)
+   def validate_spots_2(coordinate_1, coordinate_2)
      if @coordinates.include?(coordinate_1) && coordinates.include?(coordinate_2)
+       #&& (!(board[coordinate_1].occupied?) && !(@board[coordinate_1].occupied?)
        c1 = coordinate_1.chars
        c2 = coordinate_2.chars
        # c1, c2
      end
      if ((c2[0].ord - c1[0].ord).abs == 1) && c1[1] == c2[1]
        new_ship = Ship.new(coordinate_1, coordinate_2)
+       board[coordinate_1].occupy
+       board[coordinate_2].occupy
        @player_ships << new_ship
        new_ship
      elsif  (c2[0] == c1[0]) && ((c2[1].to_i - c1[1].to_i).abs == 1)
        new_ship = Ship.new(coordinate_1, coordinate_2)
+       board[coordinate_1].occupy
+       board[coordinate_2].occupy
+       @player_ships << new_ship
+       new_ship
+     else
+       #need reason for invalidity
+       return "Invalid coordinates, pick again!"
+     end
+
+   end
+
+   def validate_spots_3(coordinate_1, coordinate_2, coordinate_3)
+     if @coordinates.include?(coordinate_1) &&
+       coordinates.include?(coordinate_2) &&
+       coordinates.include?(coordinate_3)
+       #&& (!(board[coordinate_1].occupied?) && !(@board[coordinate_1].occupied?)
+       c1 = coordinate_1.chars
+       c3 = coordinate_3.chars
+       # c1, c2
+     end
+     if ((c3[0].ord - c1[0].ord).abs == 2) && c1[1] == c3[1]
+       new_ship = Ship.new(coordinate_1, coordinate_2, coordinate_3)
+       board[coordinate_1].occupy
+       board[coordinate_2].occupy
+       board[coordinate_3].occupy
+       @player_ships << new_ship
+       new_ship
+     elsif  (c3[0] == c1[0]) && ((c3[1].to_i - c1[1].to_i).abs == 2)
+       new_ship = Ship.new(coordinate_1, coordinate_2, coordinate_3)
+       board[coordinate_1].occupy
+       board[coordinate_2].occupy
+       board[coordinate_3].occupy
        @player_ships << new_ship
        new_ship
      else

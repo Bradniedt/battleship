@@ -14,8 +14,15 @@ class Game
   end
 
 
-  def human_gets_coordinates(coordinate_1, coordinate_2)
-    @human.place_ship(coordinate_1, coordinate_2)
+  def human_gets_coordinates_2(coordinate_1, coordinate_2)
+    @human.place_ship_2(coordinate_1, coordinate_2)
+    # tell player to tell board to tell spot that it is occupied
+    # human.player_board.board["#{coordinate_1}"].occupy
+    # human.player_board.board["#{coordinate_2}"].occupy
+  end
+
+  def human_gets_coordinates_3(coordinate_1, coordinate_2, coordinate_3)
+    @human.place_ship_3(coordinate_1, coordinate_2, coordinate_3)
     # tell player to tell board to tell spot that it is occupied
     # human.player_board.board["#{coordinate_1}"].occupy
     # human.player_board.board["#{coordinate_2}"].occupy
