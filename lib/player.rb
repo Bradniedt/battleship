@@ -38,7 +38,7 @@ class Player
   end
 
   def shot(coord)
-    if @player_board.valid_coordinate(coord)
+    if @player_board.valid_coordinate?(coord)
       @shots << coord
       return true
     else
