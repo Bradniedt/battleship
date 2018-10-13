@@ -45,10 +45,6 @@ D
     assert_instance_of Ship, @board.validate_spots_2("A2", "A3")
   end
 
-  def test_it_can_reject_bad_coordinates
-    assert_equal "Invalid coordinates, pick again!" , @board.validate_spots_2("A2", "A4")
-  end
-
   def test_it_can_place_3_spot_ship
     assert_instance_of Ship, @board.validate_spots_3("A2", "A4")
   end
@@ -81,6 +77,21 @@ D
     @board.computer_random_picker_2
     @board.computer_random_picker_3
     assert_instance_of Ship, @board.computer_ships[0]
+  end
+
+  def test_it_tells_player_choice_isnt_on_board
+    expected = "One of your coordinates was invalid, pick again."
+    assert_equal expected, @board.validate_spots_2("A1", "A0")
+  end
+
+  def test_it_tells_player_choice_cant_be_diagonal
+    expected = "Diagonal placement not allowed, pick again."
+    assert_equal expected, @board.validate_spots_2("A1", "B2")
+  end
+
+  def test_if_player_choice_wraps
+    expected = "Ships can't wrap around the board, pick again."
+    assert_equal expected, @board.validate_spots_2("A4", "B1")
   end
 
 end
