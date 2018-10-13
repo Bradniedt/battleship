@@ -5,7 +5,8 @@ require 'pry'
 
 class Board
   attr_reader :board,
-              :coordinates
+              :coordinates,
+              :computer_ships
   def initialize
     @size = 4
     @coordinates = ["A1", "A2", "A3", "A4",
@@ -56,9 +57,8 @@ class Board
 
    end
 
-   def validate_spots_3(coordinate_1, coordinate_2, coordinate_3)
+   def validate_spots_3(coordinate_1, coordinate_3)
      if @coordinates.include?(coordinate_1) &&
-       coordinates.include?(coordinate_2) &&
        coordinates.include?(coordinate_3)
        #&& (!(board[coordinate_1].occupied?) && !(@board[coordinate_1].occupied?)
        c1 = coordinate_1.chars
@@ -66,16 +66,16 @@ class Board
        # c1, c2
      end
      if ((c3[0].ord - c1[0].ord).abs == 2) && c1[1] == c3[1]
-       new_ship = Ship.new(coordinate_1, coordinate_2, coordinate_3)
+       new_ship = Ship.new(coordinate_1, coordinate_3)
        board[coordinate_1].occupy
-       board[coordinate_2].occupy
+       # board[coordinate_2].occupy
        board[coordinate_3].occupy
        @player_ships << new_ship
        new_ship
      elsif  (c3[0] == c1[0]) && ((c3[1].to_i - c1[1].to_i).abs == 2)
-       new_ship = Ship.new(coordinate_1, coordinate_2, coordinate_3)
+       new_ship = Ship.new(coordinate_1, coordinate_3)
        board[coordinate_1].occupy
-       board[coordinate_2].occupy
+       # board[coordinate_2].occupy
        board[coordinate_3].occupy
        @player_ships << new_ship
        new_ship
@@ -86,23 +86,78 @@ class Board
 
    end
 
+   def comp_validate_2(coordinate_1, coordinate_2)
+     if @coordinates.include?(coordinate_1) && coordinates.include?(coordinate_2)
+
+       c1 = coordinate_1.chars
+       c2 = coordinate_2.chars
+
+     end
+
+     if ((c2[0].ord - c1[0].ord).abs == 1) && c1[1] == c2[1]
+       new_ship = Ship.new(coordinate_1, coordinate_2)
+       board[coordinate_1].occupy
+       board[coordinate_2].occupy
+       @computer_ships << new_ship
+       new_ship
+     elsif  (c2[0] == c1[0]) && ((c2[1].to_i - c1[1].to_i).abs == 1)
+       new_ship = Ship.new(coordinate_1, coordinate_2)
+       board[coordinate_1].occupy
+       board[coordinate_2].occupy
+       @computer_ships << new_ship
+       new_ship
+     else
+       #need reason for invalidity
+       computer_random_2
+     end
+   end
 
 
+     def comp_validate_3(coordinate_1, coordinate_3)
+       if @coordinates.include?(coordinate_1) &&
+         # coordinates.include?(coordinate_2) &&
+         coordinates.include?(coordinate_3)
+         #&& (!(board[coordinate_1].occupied?) && !(@board[coordinate_1].occupied?)
+         c1 = coordinate_1.chars
+         c3 = coordinate_3.chars
+         # c1, c2
+       end
+       if ((c3[0].ord - c1[0].ord).abs == 2) && c1[1] == c3[1]
+         new_ship = Ship.new(coordinate_1, coordinate_3)
+         board[coordinate_1].occupy
+         # board[coordinate_2].occupy
+         board[coordinate_3].occupy
+         @computer_ships << new_ship
+         new_ship
+       elsif  (c3[0] == c1[0]) && ((c3[1].to_i - c1[1].to_i).abs == 2)
+         new_ship = Ship.new(coordinate_1, coordinate_3)
+         board[coordinate_1].occupy
+         # board[coordinate_2].occupy
+         board[coordinate_3].occupy
+         @computer_ships << new_ship
+         new_ship
+       else
+         computer_random_3
+       end
+     end
+
+
+       def computer_random_2
+        coord_1 = @coordinates.sample
+        coord_2 = @coordinates.sample
+        comp_validate_2(coord_1, coord_2)
+       end
+
+       def computer_random_3
+        coord_1 = @coordinates.sample
+        # coord_2 = @coordinates.sample
+        coord_3 = @coordinates.sample
+        comp_validate_3(coord_1,coord_3)
+      end
 
 end
-
 
 =begin
-
-This allows our current algorithm to work for both computer
-and player placement.
-computer random coordinate picker:
-def computer_random_coordinate_picker
-  coord_1 = @coordinates.sample
-  coord_2 = @coordinates.sample
-  validate_spots(coord_1, coord_2)
-end
-
 ---------------------------------------------
 Dan's Validator
 
