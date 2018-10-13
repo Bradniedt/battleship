@@ -9,8 +9,6 @@ class Interface
   attr_accessor :input,:human, :computer
 
   def initialize
-    @input
-    @new_game
     @human = Player.new
     @computer = Player.new
   end
@@ -19,16 +17,16 @@ class Interface
     p "Welcome to BATTLESHIP"
     p "Would you like to (p)lay, read the (i)nstructions, or (q)uit?"
     print ">"
-    @input = gets.chomp
-    evaluate_input
+    input = gets.chomp
+    evaluate_input(input)
   end
 
   def evaluate_input
-    if @input == "p"
+    if input == "p"
       @new_game = Game.new
-    elsif  @input == "i"
+    elsif  input == "i"
       read_instructions
-    elsif @input == "q"
+    elsif input == "q"
       p "Thank you for playing!"
     end
   end
@@ -39,8 +37,16 @@ class Interface
   end
 
   def play
-    
-
+    #display player shots board
+    #player make shot
+    #display player shots board
+    #computer shots
+    #display player ships board
+    @human.player_board.display
+    puts "Choose a coordinate to shoot upon!"
+    shot_input = gets.chomp
+    @computer.human_shot(shot_input) 
+    #human shots are called upon the computer self and vice versa
   end
 
   def quit
@@ -48,18 +54,16 @@ class Interface
   end
 
   def human_gets_coordinates_2(coordinate_1, coordinate_2)
-      @human.place_ship_2(coordinate_1, coordinate_2)
-
+    @human.place_ship_2(coordinate_1, coordinate_2)
   end
 
   def human_gets_coordinates_3(coordinate_1, coordinate_3)
-      @human.place_ship_3(coordinate_1, coordinate_3)
-
+    @human.place_ship_3(coordinate_1, coordinate_3)
   end
 
   def computer_gets_coordinates
-      @computer.computer_placement_2
-      @computer.computer_placement_3
+    @computer.computer_placement_2
+    @computer.computer_placement_3
   end
 
 end

@@ -104,4 +104,17 @@ D
     @board.validate_spots_2("A1", "A2")
     assert_equal "Whiff", @board.valid_coordinate?("A3")
   end
+
+  def test_it_can_find_horizontal_coordinate_2
+    assert_equal "A2", @board.find_coord_2("A1", "A3")
+  end
+
+  def test_it_can_find_vertical_coordinate_2
+    assert_equal "B1", @board.find_coord_2("A1", "C1")
+  end
+
+  def test_it_tells_player_choice_cant_be_diagonal_for_3
+    expected = "Diagonal placement not allowed, pick again."
+    assert_equal expected, @board.validate_spots_3("A1", "C2")
+  end
 end
