@@ -1,11 +1,18 @@
- require './lib/game.rb'
+require './lib/board'
+ require './lib/ship'
+ require './lib/spot'
+ require './lib/player'
+ require 'pry'
+
 
 class Interface
-  attr_accessor :input #might need to be changed back to reader
+  attr_accessor :input,:human, :computer
 
   def initialize
     @input
     @new_game
+    @human = Player.new
+    @computer = Player.new
   end
 
   def instruction
@@ -32,11 +39,27 @@ class Interface
   end
 
   def play
+    
 
   end
 
   def quit
 
+  end
+
+  def human_gets_coordinates_2(coordinate_1, coordinate_2)
+      @human.place_ship_2(coordinate_1, coordinate_2)
+
+  end
+
+  def human_gets_coordinates_3(coordinate_1, coordinate_3)
+      @human.place_ship_3(coordinate_1, coordinate_3)
+
+  end
+
+  def computer_gets_coordinates
+      @computer.computer_placement_2
+      @computer.computer_placement_3
   end
 
 end
