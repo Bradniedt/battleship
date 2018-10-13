@@ -135,9 +135,9 @@ D #{content.values_at(12,13,14,15).join(" ")}
      (!(@board[coordinate_1].occupied?) &&
        !(@board[coordinate_2].occupied?) &&
        !(@board[coordinate_3].occupied?))
-     c1 = coordinate_1.chars
-     c3 = coordinate_3.chars
    end
+   c1 = coordinate_1.chars
+   c3 = coordinate_3.chars
    if ((c3[0].ord - c1[0].ord).abs == 2) && c1[1].to_i == c3[1].to_i
      new_ship = Ship.new(coordinate_1, coordinate_3)
      board[coordinate_1].occupy

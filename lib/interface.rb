@@ -42,10 +42,11 @@ class Interface
     #display player shots board
     #computer shots
     #display player ships board
-    @human.player_board.display_board
+    @human.player_board.display
     puts "Choose a coordinate to shoot upon!"
     shot_input = gets.chomp
-    @human.shot(shot_input)
+    @computer.human_shot(shot_input) 
+    #human shots are called upon the computer self and vice versa
   end
 
   def quit

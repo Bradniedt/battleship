@@ -5,11 +5,13 @@ require './lib/player'
 require 'pry'
 
 class Spot
+  attr_reader :hit_status
 
   def initialize(name)
     @name = name
     @status = false
     @content = " "
+    @hit_status = false
   end
 
   def occupy
@@ -26,6 +28,7 @@ class Spot
 
   def hit
     @content = "H"
+    @hit_status = true
     return "Its a hit!"
   end
 

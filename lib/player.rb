@@ -37,12 +37,13 @@ class Player
     @player_board.computer_random_picker_3
   end
 
-  def shot(coord)
-    if @player_board.valid_coordinate?(coord)
-      @shots << coord
-      return true
-    else
-      false
-    end
+  def human_shot(coord)
+    @shots << coord
+    @player_board.valid_coordinate?(coord)
+      # if @player_board.board[coord].hit_status
+      #   "Its a hit!"
+      # else
+      #   "Its a miss!"
+      # end
   end
 end
