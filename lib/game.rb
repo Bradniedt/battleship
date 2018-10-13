@@ -29,7 +29,8 @@ class Game
   end
 
   def computer_gets_coordinates
-    @computer.computer_placement
+    @computer.computer_placement_2
+    @computer.computer_placement_3
   end
 
 end

@@ -9,17 +9,15 @@ require './lib/ship'
 
 class BoardTest < Minitest::Test
 
+  def setup
+    @board = Board.new
+  end
+
   def test_it_exists
-
-
-    board = Board.new
-    assert_instance_of Board , board
+    assert_instance_of Board , @board
   end
 
   def test_it_can_display_a_board
-
-
-    board = Board.new
     expected =
 "===========
 . 1 2 3 4
@@ -28,36 +26,61 @@ B
 C
 D
 ==========="
-    assert_equal expected, board.display
+    assert_equal expected, @board.display
   end
 
   def test_it_can_create_board
-
-    board = Board.new
-    # board.create_board
-    assert_instance_of Hash, board.board
+    assert_instance_of Hash, @board.board
   end
 
   def test_it_can_display_a_spots_content
-
-    board = Board.new
-    # board.create_board
-    assert_equal " ", board.board["A1"].contents
+    assert_equal " ", @board.board["A1"].contents
   end
 
   def test_it_can_validate_vertical_coordinates
-    board = Board.new
-    assert_instance_of Ship, board.validate_spots("A2", "B2")
+    assert_instance_of Ship, @board.validate_spots_2("A2", "B2")
   end
 
   def test_it_can_validate_horizontal_coordinates
-    board = Board.new
-    assert_instance_of Ship, board.validate_spots("A2", "A3")
+    assert_instance_of Ship, @board.validate_spots_2("A2", "A3")
   end
 
   def test_it_can_reject_bad_coordinates
-    board = Board.new
-    assert_equal "Invalid coordinates, pick again!" , board.validate_spots("A2", "A4")
+    assert_equal "Invalid coordinates, pick again!" , @board.validate_spots_2("A2", "A4")
+  end
+
+  def test_it_can_place_3_spot_ship
+    assert_instance_of Ship, @board.validate_spots_3("A2", "A4")
+  end
+
+  def test_it_can_place_2_spot_ships_for_computer
+    assert_instance_of Ship, @board.comp_validate_2("A2", "A3")
+  end
+
+  def test_it_can_place_3_spot_ship_for_computer
+    assert_instance_of Ship, @board.comp_validate_3("A2", "A4")
+  end
+
+  def test_it_can_pick_random_coordinates_for_a_2
+    assert_instance_of Ship, @board.computer_random_picker_2
+  end
+
+  def test_it_can_pick_random_coordinates_for_a_3
+    assert_instance_of Ship, @board.computer_random_picker_3
+  end
+
+  def test_it_can_automatically_place_a_2_spot_ship_for_computer
+    assert_instance_of Ship, @board.comp_validate_2("B3", "A4")
+  end
+
+  def test_it_can_automatically_place_3_spot_ship_for_computer
+    assert_instance_of Ship, @board.comp_validate_2("B2", "A4")
+  end
+
+  def test_it_can_create_random_computer_ships
+    @board.computer_random_picker_2
+    @board.computer_random_picker_3
+    assert_instance_of Ship, @board.computer_ships[0]
   end
 
 end
