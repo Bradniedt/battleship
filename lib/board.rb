@@ -28,7 +28,19 @@ class Board
   end
 
   def display
-    p  "===========\n. 1 2 3 4\nA\nB\nC\nD\n==========="
+    value = @board.values
+    content = value.map do |spot|
+    spot.contents
+    end
+
+    p
+"===========\n
+. 1 2 3 4
+A #{content.values_at(0,1,2,3).join(" ")}
+B #{content.values_at(4,5,6,7).join(" ")}
+C #{content.values_at(8,9,10,11).join(" ")}
+D #{content.values_at(12,13,14,15).join(" ")}
+==========="
   end
 
   def validate_spots_2(coordinate_1, coordinate_2)

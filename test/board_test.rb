@@ -17,18 +17,6 @@ class BoardTest < Minitest::Test
     assert_instance_of Board , @board
   end
 
-  def test_it_can_display_a_board
-    expected =
-"===========
-. 1 2 3 4
-A
-B
-C
-D
-==========="
-    assert_equal expected, @board.display
-  end
-
   def test_it_can_create_board
     assert_instance_of Hash, @board.board
   end
@@ -94,4 +82,17 @@ D
     assert_equal expected, @board.validate_spots_2("A4", "B1")
   end
 
+  def test_it_can_display_a_hit
+    @board.board["A1"].hit
+    expected =
+  "===========
+. 1 2 3 4
+A H
+B
+C
+D
+==========="
+    assert_equal expected, @board.display
+
+  end
 end
