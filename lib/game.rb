@@ -6,7 +6,7 @@ require 'pry'
 
 
 class Game
-  attr_reader :human
+  attr_reader :human, :computer
 
   def initialize
     @human = Player.new
@@ -21,20 +21,15 @@ class Game
     # human.player_board.board["#{coordinate_2}"].occupy
   end
 
-  def human_gets_coordinates_3(coordinate_1, coordinate_2, coordinate_3)
-    @human.place_ship_3(coordinate_1, coordinate_2, coordinate_3)
+  def human_gets_coordinates_3(coordinate_1, coordinate_3)
+    @human.place_ship_3(coordinate_1, coordinate_3)
     # tell player to tell board to tell spot that it is occupied
     # human.player_board.board["#{coordinate_1}"].occupy
     # human.player_board.board["#{coordinate_2}"].occupy
   end
 
-  def computer_gets_coordinates_2
-    @computer.place_ship_2(coordinate_1, coordinate_2)
-    # tell player to tell board to tell spot that it is occupied
-    # human.player_board.board["#{coordinate_1}"].occupy
-    # human.player_board.board["#{coordinate_2}"].occupy
+  def computer_gets_coordinates
+    @computer.computer_placement
   end
-
-
 
 end
