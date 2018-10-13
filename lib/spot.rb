@@ -24,4 +24,12 @@ class Spot
     @content
   end
 
+  def hit
+    @content = "H"
+  end
+
+  def miss
+    @content = "M"
+  end
+  
 end

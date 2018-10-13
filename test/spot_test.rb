@@ -30,6 +30,16 @@ class SpotTest < Minitest::Test
     assert_equal " ", spot.contents
   end
 
+  def test_it_can_be_hit
+     spot = Spot.new("A2")
+     spot.hit
+     assert_equal "H", spot.contents
+  end
 
+  def test_it_can_be_miss
+     spot = Spot.new("A2")
+     spot.miss
+     assert_equal "M", spot.contents
+  end
 
 end
