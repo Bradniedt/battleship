@@ -61,11 +61,11 @@ D
     assert_instance_of Ship, @board.comp_validate_3("A2", "A4")
   end
 
-  def test_it_can_pick_random_coordinates_for_a_2test_it_can_place_3_spot_ship
+  def test_it_can_pick_random_coordinates_for_a_2
     assert_instance_of Ship, @board.computer_random_picker_2
   end
 
-  def test_it_can_pick_random_coordinates_for_a_3test_it_can_place_3_spot_ship
+  def test_it_can_pick_random_coordinates_for_a_3
     assert_instance_of Ship, @board.computer_random_picker_3
   end
 

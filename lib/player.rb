@@ -29,17 +29,11 @@ class Player
   end
 
   def computer_placement_2
-    @player_board.computer_random_2
+    @player_board.computer_random_picker_2
   end
 
   def computer_placement_3
-    @player_board.computer_random_3
-  end
-
-  def sample_to_coordinate(array)
-      array.map do  |num|
-        @player_board.coordinates[num]
-      end
+    @player_board.computer_random_picker_3
   end
 
 end
