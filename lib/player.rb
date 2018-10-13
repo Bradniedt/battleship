@@ -8,7 +8,7 @@ class Player
   attr_reader :player_board, :shoots
   def initialize
     @player_board = Board.new
-    @shoots = []
+    @shots = []
   end
 
   def place_ship_2(coordinate_1, coordinate_2)
@@ -39,7 +39,7 @@ class Player
 
   def shot(coord)
     if @player_board.valid_coordinate(coord)
-      @shoots << coord
+      @shots << coord
       return true
     else
       false

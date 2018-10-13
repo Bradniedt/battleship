@@ -82,6 +82,7 @@ D #{content.values_at(12,13,14,15).join(" ")}
      elsif  horizontal?(coordinate_1, coordinate_3, 2)
        new_ship = Ship.new(coordinate_1, coordinate_3)
        board[coordinate_1].occupy
+       board[find_coord_2(coordinate_1, coordinate_3)].occupy
        board[coordinate_3].occupy
        @player_ships << new_ship
        new_ship
@@ -129,12 +130,14 @@ D #{content.values_at(12,13,14,15).join(" ")}
    if ((c3[0].ord - c1[0].ord).abs == 2) && c1[1] == c3[1]
      new_ship = Ship.new(coordinate_1, coordinate_3)
      board[coordinate_1].occupy
+     board[find_coord_2(coordinate_1, coordinate_3)].occupy
      board[coordinate_3].occupy
      @computer_ships << new_ship
      new_ship
    elsif  (c3[0] == c1[0]) && ((c3[1].to_i - c1[1].to_i).abs == 2)
      new_ship = Ship.new(coordinate_1, coordinate_3)
      board[coordinate_1].occupy
+     board[find_coord_2(coordinate_1, coordinate_3)].occupy
      board[coordinate_3].occupy
      @computer_ships << new_ship
      new_ship
@@ -191,9 +194,26 @@ D #{content.values_at(12,13,14,15).join(" ")}
       else
         @board["#{coord}"].miss
       end
-
     else
       false
+    end
+  end
+
+  def find_coord_2(coordinate_1, coordinate_3)
+    c1 = coordinate_1.chars
+    c3 = coordinate_3.chars
+    if c1[0] == c3[0]
+      if c1[1].to_i > c3[1].to_i
+        coordinate_2 = "#{c3[0]}#{(c3[1].to_i + 1)}"
+      else
+       coordinate_2 = "#{c1[0]}#{(c1[1].to_i + 1)}"
+      end
+    else
+      if c1[0].ord > c3[0].ord
+        coordinate_2 = "#{c3[0].next}#{c3[1]}"
+      else
+       coordinate_2 = "#{c1[0].next}#{c3[1]}"
+      end
     end
   end
 
