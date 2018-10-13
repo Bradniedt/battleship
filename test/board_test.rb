@@ -83,6 +83,7 @@ class BoardTest < Minitest::Test
   end
 
   def test_it_can_display_a_hit
+    skip
     @board.board["A1"].hit
     expected =
   "===========
@@ -93,6 +94,14 @@ C
 D
 ==========="
     assert_equal expected, @board.display
+  end
+  def test_shot_sequence_hit
+    @board.validate_spots_2("A1", "A2")
+    assert_equal "Its a hit!", @board.valid_coordinate?("A1")
+  end
 
+  def test_shot_sequence_miss
+    @board.validate_spots_2("A1", "A2")
+    assert_equal "Whiff", @board.valid_coordinate?("A3")
   end
 end

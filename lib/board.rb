@@ -41,7 +41,7 @@ B #{content.values_at(4,5,6,7).join(" ")}
 C #{content.values_at(8,9,10,11).join(" ")}
 D #{content.values_at(12,13,14,15).join(" ")}
 ==========="
-  end
+ end
 
   def validate_spots_2(coordinate_1, coordinate_2)
    if @coordinates.include?(coordinate_1) && coordinates.include?(coordinate_2)
@@ -179,6 +179,19 @@ D #{content.values_at(12,13,14,15).join(" ")}
       true
     elsif c1[1].to_i - c2[1].to_i == 3
       true
+    else
+      false
+    end
+  end
+
+  def valid_coordinate?(coord)
+    if @coordinates.include?(coord)
+      if @board["#{coord}"].occupied?
+        @board["#{coord}"].hit
+      else
+        @board["#{coord}"].miss
+      end
+
     else
       false
     end

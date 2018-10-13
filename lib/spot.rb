@@ -26,10 +26,12 @@ class Spot
 
   def hit
     @content = "H"
+    return "Its a hit!"
   end
 
   def miss
     @content = "M"
+    return "Whiff"
   end
-  
+
 end

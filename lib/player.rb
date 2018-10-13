@@ -5,9 +5,10 @@ require './lib/player'
 require 'pry'
 
 class Player
-  attr_reader :player_board
+  attr_reader :player_board, :shoots
   def initialize
     @player_board = Board.new
+    @shoots = []
   end
 
   def place_ship_2(coordinate_1, coordinate_2)
@@ -36,4 +37,12 @@ class Player
     @player_board.computer_random_picker_3
   end
 
+  def shot(coord)
+    if @player_board.valid_coordinate(coord)
+      @shoots << coord
+      return true
+    else
+      false
+    end
+  end
 end
