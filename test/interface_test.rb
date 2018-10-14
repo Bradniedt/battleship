@@ -23,7 +23,7 @@ class InterfaceTest < Minitest::Test
     new_interface = Interface.new
     new_interface.computer_gets_coordinates
     binding.pry
-    assert_equal "Its a hit!", new_interface.play
+    assert_equal "It's a hit!", new_interface.play
   end
 
 end
