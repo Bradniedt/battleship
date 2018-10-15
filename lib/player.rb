@@ -41,7 +41,7 @@ class Player
     @shots << coord
     @player_board.valid_coordinate?(coord)
       # if @player_board.board[coord].hit_status
-      #   "Its a hit!"
+      #   "It's a hit!"
       # else
       #   "Its a miss!"
       # end

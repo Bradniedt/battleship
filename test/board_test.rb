@@ -97,7 +97,7 @@ D
   end
   def test_shot_sequence_hit
     @board.validate_spots_2("A1", "A2")
-    assert_equal "Its a hit!", @board.valid_coordinate?("A1")
+    assert_equal "It's a hit!", @board.valid_coordinate?("A1")
   end
 
   def test_shot_sequence_miss
@@ -113,8 +113,7 @@ D
     assert_equal "B1", @board.find_coord_2("A1", "C1")
   end
 
-  def test_it_tells_player_choice_cant_be_diagonal_for_3
-    expected = "Diagonal placement not allowed, pick again."
-    assert_equal expected, @board.validate_spots_3("A1", "C2")
+  def test_it_can_find_middle_coordinate
+    assert_equal "A2", @board.find_coord_2("A1", "A3")
   end
 end

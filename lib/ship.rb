@@ -11,4 +11,9 @@ class Ship
     @coordinate_2 = coordinate_2
   end
 
+  def orient
+
+  end  
+
+
 end

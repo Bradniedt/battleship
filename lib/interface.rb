@@ -32,11 +32,21 @@ class Interface
   end
 
   def read_instructions
-    p "ipsum"
+    p "Battleship is a game of blind guesses and educated guesses.
+    You will begin by placing two ships on the grid. You place a ship
+    by typing in the coordinates for its bow and stern like this : A1 B1.
+    You will have two ships - one is two spaces long, and the other is three
+    spaces long. You will place both using two coordinates.
+    After the ships are placed, you can start taking turns at placing
+    shots with the computer. After each shot, you will get a message telling you
+    that it was a hit or a miss.
+    Once all of one player's ship coordinates have been hit, the game is over.
+    Have fun!"
     instruction
   end
 
   def play
+    #until computer has won or player has won, do turn loop. 
     #display player shots board
     #player make shot
     #display player shots board
@@ -45,7 +55,7 @@ class Interface
     @human.player_board.display
     puts "Choose a coordinate to shoot upon!"
     shot_input = gets.chomp
-    @computer.human_shot(shot_input) 
+    @computer.human_shot(shot_input)
     #human shots are called upon the computer self and vice versa
   end
 
