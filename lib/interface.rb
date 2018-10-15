@@ -77,6 +77,10 @@ class Interface
     puts "Choose a coordinate to shoot upon!"
     shot_input = gets.chomp
     @computer.human_shot(shot_input)
+    @human.player_board.display_board
+    
+    @human.human_shot(@computer.computer_shot_picker)
+
   end
 
   def quit

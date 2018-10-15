@@ -51,4 +51,23 @@ class Player
       #   "Its a miss!"
       # end
   end
+
+  def computer_shot
+    computer_shot_picker
+    @shots << coord
+    @player_board.valid_coordinate?(coord)
+      # if @player_board.board[coord].hit_status
+      #   "It's a hit!"
+      # else
+      #   "Its a miss!"
+      # end
+  end
+
+  def computer_shot_picker
+    coord = @player_board.coordinates.sample
+    if @shots.include?(coord)
+      computer_shot_picker
+    else
+      return coord
+    end
 end
