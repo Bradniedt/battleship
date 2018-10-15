@@ -34,4 +34,9 @@ class PlayerTest < Minitest::Test
     assert_instance_of Ship, @new_player.computer_placement_3
   end
 
+  def test_it_can_return_spot_status
+    binding.pry
+    assert_equal 1, @new_player.place_ship_3("A1", "A3")
+  end
+
 end

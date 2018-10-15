@@ -12,14 +12,19 @@ class Player
   end
 
   def place_ship_2(coordinate_1, coordinate_2)
-    if @player_board.board[coordinate_1].occupied? == false && @player_board.board[coordinate_2].occupied? == false
-      @player_board.validate_spots_2(coordinate_1, coordinate_2)
-    else
-      "Those spots are occupied"
-    end
+
+    @player_board.validate_spots_2(coordinate_1, coordinate_2)
+    # if @player_board.board[coordinate_1].occupied? &&
+    #   @player_board.board[coordinate_2].occupied?
+    #   return "Those spots are occupied"
+    #   # @player_board.board[coordinate_1].occupied? == false && @player_board.board[coordinate_2].occupied? == false
+    # else
+    #   @player_board.validate_spots_2(coordinate_1, coordinate_2)
+    # end
   end
 
   def place_ship_3(coordinate_1, coordinate_3)
+
     if @player_board.board[coordinate_1].occupied? == false &&
       # @player_board.board[coordinate_2].occupied? == false &&
       @player_board.board[coordinate_3].occupied? == false
