@@ -46,6 +46,7 @@ class Interface
   end
 
   def play
+    #until computer has won or player has won, do turn loop. 
     #display player shots board
     #player make shot
     #display player shots board

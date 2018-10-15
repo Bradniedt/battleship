@@ -122,12 +122,6 @@ class Board
   def comp_validate_3(coordinate_1, coordinate_3)
       if @coordinates.include?(coordinate_1) && @coordinates.include?(coordinate_3) &&
         !(@board[coordinate_1].occupied? && @board[coordinate_3].occupied?)
-      #   ((@coordinates.include?(coordinate_1) &&
-      #    @coordinates.include?(coordinate_2)) &&
-      #    @coordinates.include?(coordinate_3)) &&
-      #    ((!(@board[coordinate_1].occupied?) &&
-      #      !(@board[coordinate_2].occupied?)) &&
-      #      !(@board[coordinate_3].occupied?))
          c1 = coordinate_1.chars
          c3 = coordinate_3.chars
           if ((c3[0].ord - c1[0].ord).abs == 2) && c1[1].to_i == c3[1].to_i

@@ -22,6 +22,10 @@ class InterfaceTest < Minitest::Test
   def test_it_can_perform_a_shot_sequence
     new_interface = Interface.new
     new_interface.computer_gets_coordinates
+    #only way to test if you can get a hit is to
+    #pry into the test, call new_interface.computer
+    #to see it's ship placements, then exit the pry
+    #to choose a coordinate to shoot on.
     binding.pry
     assert_equal "It's a hit!", new_interface.play
   end
