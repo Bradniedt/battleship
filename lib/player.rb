@@ -25,13 +25,13 @@ class Player
 
   def place_ship_3(coordinate_1, coordinate_3)
 
-    if @player_board.board[coordinate_1].occupied? == false &&
-      # @player_board.board[coordinate_2].occupied? == false &&
-      @player_board.board[coordinate_3].occupied? == false
+    # if @player_board.board[coordinate_1].occupied? == false &&
+    #   # @player_board.board[coordinate_2].occupied? == false &&
+    #   @player_board.board[coordinate_3].occupied? == false
       @player_board.validate_spots_3(coordinate_1, coordinate_3)
-    else
-      "Those spots are occupied"
-    end
+    # else
+    #   "Those spots are occupied"
+    # end
   end
 
   def computer_placement_2
@@ -45,6 +45,7 @@ class Player
   def human_shot(coord)
     @shots << coord
     @player_board.valid_coordinate?(coord)
+    
       # if @player_board.board[coord].hit_status
       #   "It's a hit!"
       # else
@@ -70,4 +71,5 @@ class Player
     else
       return coord
     end
+  end
 end

@@ -56,29 +56,37 @@ class Interface
     print ">"
     input = gets.chomp
     inputs2 = input.split
-    if human_gets_coordinates_2(inputs2[0], inputs2[1]) == "Placed ship!"
-    else
-      play
-    end
+    human_gets_coordinates_2(inputs2[0], inputs2[1]) #== "Placed ship!"
+    # else
+    #   play
+    # end
     p "Pick your 3 spot ship coordinates:"
     print ">"
     input = gets.chomp
     inputs3 = input.split
+    binding.pry
+    # human_gets_coordinates_3(inputs3[0], inputs3[1])
     human_gets_coordinates_3(inputs3[0], inputs3[1])
+    #     puts "Pick your am i the one  spot ship coordinates:"
+    #     print ">"
+    #     input = gets.chomp
+    #     inputs3 = input.split
+    #     human_gets_coordinates_3(inputs3[0], inputs3[1])
+    # end
 
     computer_gets_coordinates
 
     shot_sequence
-    #human shots are called upon the computer self and vice versa
+    # #human shots are called upon the computer self and vice versa
   end
 
   def shot_sequence
-    @human.player_board.display_board
-    puts "Choose a coordinate to shoot upon!"
+    @computer.player_board.display_board
+    p "Choose a coordinate to shoot upon!"
     shot_input = gets.chomp
     @computer.human_shot(shot_input)
-    @human.player_board.display_board
-    
+    p  "Returning Fire"
+    @computer.player_board.display_board
     @human.human_shot(@computer.computer_shot_picker)
 
   end
@@ -94,7 +102,7 @@ class Interface
   end
 
   def human_gets_coordinates_3(coordinate_1, coordinate_3)
-    @human.place_ship_3(coordinate_1, coordinate_3)
+    return @human.place_ship_3(coordinate_1, coordinate_3)
   end
 
   def computer_gets_coordinates
