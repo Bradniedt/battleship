@@ -1,4 +1,3 @@
-require './lib/spot.rb'
 require './lib/ship.rb'
 require './lib/player.rb'
 require './lib/interface.rb'
@@ -56,7 +55,7 @@ class Board
        @available_coordinates.delete(coordinate_2)
        @small_ship = new_ship
        p "Placed ship!"
-     elsif  ((c2[0].ord - c1[0].ord).abs == 1) && c1[1] == c2[1]
+     elsif  ((c2[0].ord - c1[0].ord).abs == 1) && (c1[1] == c2[1])
        new_ship = Ship.new([coordinate_1, coordinate_2])
        @available_coordinates.delete(coordinate_1)
        @available_coordinates.delete(coordinate_2)
@@ -69,8 +68,9 @@ class Board
        input = gets.chomp
        inputs2 = input.split
        validate_spots_2(inputs2[0], inputs2[1])
-     elsif !(((c2[0].ord - c1[0].ord).abs == 1) && c1[1] == c2[1]) &&
-       !((c2[0] == c1[0]) && ((c2[1].to_i - c1[1].to_i).abs == 1))
+     elsif (((c2[0].ord - c1[0].ord).abs == 1) && (c1[1] == c2[1])) ||
+       (((c2[0].ord - c1[0].ord).abs == 3) && (c1[1]== c2[1]))
+       # !((c2[0] == c1[0]) && ((c2[1].to_i - c1[1].to_i).abs == 1))
        p "Diagonal placement not allowed, pick again."
        p "Pick your 2 spot ship coordinates:"
        print ">"
@@ -108,6 +108,7 @@ class Board
            @available_coordinates.delete(coordinate_2)
            @available_coordinates.delete(coordinate_3)
            @big_ship = new_ship
+           new_ship
            p "Placed ship!"
          elsif  ((c3[0].ord - c1[0].ord).abs == 2) && c1[1] == c3[1]
            coord_2 = find_coord_2(coordinate_1, coordinate_3)
@@ -153,12 +154,14 @@ class Board
        @available_coordinates.delete(coordinate_1)
        @available_coordinates.delete(coordinate_2)
        @small_ship = new_ship
+       @computer_ships << @small_ship
        new_ship
      elsif  (c2[0] == c1[0]) && ((c2[1].to_i - c1[1].to_i).abs == 1)
        new_ship = Ship.new([coordinate_1, coordinate_2])
        @available_coordinates.delete(coordinate_1)
        @available_coordinates.delete(coordinate_2)
        @small_ship = new_ship
+       @computer_ships << @small_ship
        new_ship
      else
        computer_random_picker_2
@@ -183,6 +186,7 @@ class Board
             @available_coordinates.delete(coordinate_2)
             @available_coordinates.delete(coordinate_3)
             @big_ship = new_ship
+            @computer_ships << @big_ship
             new_ship
             end
           elsif  (c3[0] == c1[0]) && ((c3[1].to_i - c1[1].to_i).abs == 2)
@@ -195,6 +199,7 @@ class Board
               @available_coordinates.delete(coordinate_2)
               @available_coordinates.delete(coordinate_3)
               @big_ship = new_ship
+              @computer_ships << @big_ship
               new_ship
             end
           else
@@ -233,8 +238,10 @@ class Board
       if @coordinates.include?(coord)
           if @available_coordinates.include?(coord)
             @board["#{coord}"] = "M"
+            p "Whiff"
           else
             @board["#{coord}"] = "H"
+            p "It's a hit!"
           end
       else
         false
@@ -270,16 +277,6 @@ class Board
       end
     end
   end
-
-  # def occupied_spots?(one, two, three)
-  #   if @board[one].occupied?
-  #     if @board[two].occupied?
-  #       if @board[three].occupied?
-  #         true
-  #       end
-  #     end
-  #   end
-  # end
 
   def available_spots?(one, two, three)
     if @available_coordinates.include?(one)

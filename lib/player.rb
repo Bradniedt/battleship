@@ -1,6 +1,5 @@
 require './lib/board'
 require './lib/ship'
-require './lib/spot'
 require './lib/player'
 require 'pry'
 
@@ -45,12 +44,6 @@ class Player
     end
     #if it was a hit, need to store that in an array for comparison to ships.
   end
-
-  # def computer_shot
-  #   computer_shot_picker
-  #   @shots << coord
-  #   @player_board.take_shot(coord)
-  # end
 
   def computer_shot_picker
     coord = @shot_coordinates.sample
