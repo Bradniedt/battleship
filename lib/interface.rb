@@ -67,6 +67,7 @@ class Interface
     p  "Returning Fire"
     @computer.player_board.display_board
     @human.human_shot(@computer.computer_shot_picker)
+    @human.player_board.display_board
   end
 
   def quit
