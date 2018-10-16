@@ -33,7 +33,6 @@ class Board
     content = value.map do |spot|
     spot.contents
     end
-
     puts "==========="
     puts ". 1 2 3 4"
     puts "A #{content.values_at(0,1,2,3).join(" ")}"
@@ -48,7 +47,6 @@ class Board
      c1 = coordinate_1.chars
      c2 = coordinate_2.chars
      if (c2[0] == c1[0]) && ((c2[1].to_i - c1[1].to_i).abs == 1)
-       # vertical?(coordinate_1, coordinate_2)
        new_ship = Ship.new(coordinate_1, coordinate_2)
        @board[coordinate_1].occupy
        @board[coordinate_2].occupy
@@ -56,7 +54,6 @@ class Board
        new_ship
        p "Placed ship!"
      elsif  ((c2[0].ord - c1[0].ord).abs == 1) && c1[1] == c2[1]
-       # horizontal?(coordinate_1, coordinate_2)
        new_ship = Ship.new(coordinate_1, coordinate_2)
        @board[coordinate_1].occupy
        @board[coordinate_2].occupy
@@ -78,17 +75,15 @@ class Board
        input = gets.chomp
        inputs2 = input.split
        validate_spots_2(inputs2[0], inputs2[1])
-
      else
        p "I don't know what you did, but pick again."
        p "Pick your 2 spot ship coordinates:"
        print ">"
        input = gets.chomp
        inputs2 = input.split
-      validate_spots_2(inputs2[0], inputs2[1])
-
+       validate_spots_2(inputs2[0], inputs2[1])
      end
-   else
+    else
        p  "One of your coordinates was invalid, pick again."
        p "Pick your 2 spot ship coordinates:"
        print ">"
@@ -96,18 +91,15 @@ class Board
        inputs2 = input.split
        validate_spots_2(inputs2[0], inputs2[1])
     end
-
   end
 
   def validate_spots_3(coordinate_1, coordinate_3)
     coordinate_2 = find_coord_2(coordinate_1, coordinate_3)
-     if (@coordinates.include?(coordinate_1) && @coordinates.include?(coordinate_2) && @coordinates.include?(coordinate_3)) &&
-       !(@board[coordinate_1].occupied? && @board[coordinate_2].occupied? && @board[coordinate_3].occupied?)
+     if actual_spots?(coordinate_1, coordinate_2, coordinate_3) &&
+       !((@board[coordinate_1].occupied? && @board[coordinate_2].occupied?) && @board[coordinate_3].occupied?)
        c1 = coordinate_1.chars
        c3 = coordinate_3.chars
-
          if (c3[0] == c1[0]) && ((c3[1].to_i - c1[1].to_i).abs == 2)
-           # vertical?(coordinate_1, coordinate_3, 2)
            coord_2 = find_coord_2(coordinate_1, coordinate_3)
            new_ship = Ship.new(coordinate_1, coordinate_3)
            @board[coordinate_1].occupy
@@ -116,9 +108,7 @@ class Board
            @player_ships << new_ship
            new_ship
            p "Placed ship!"
-
          elsif  ((c3[0].ord - c1[0].ord).abs == 2) && c1[1] == c3[1]
-           # horizontal?(coordinate_1, coordinate_3, 2)
            coord_2 = find_coord_2(coordinate_1, coordinate_3)
            new_ship = Ship.new(coordinate_1, coordinate_3)
            @board[coordinate_1].occupy
@@ -134,7 +124,6 @@ class Board
            input = gets.chomp
            inputs3 = input.split
            binding.pry
-           # human_gets_coordinates_3(inputs3[0], inputs3[1])
            validate_spots_3(inputs3[0], inputs3[1])
          else
            p "I don't know what you did, but pick again."
@@ -142,10 +131,7 @@ class Board
            print ">"
            input = gets.chomp
            inputs3 = input.split
-
-           # human_gets_coordinates_3(inputs3[0], inputs3[1])
            validate_spots_3(inputs3[0], inputs3[1])
-
          end
      else
          p "One of your coordinates was invalid, pick again."
@@ -153,10 +139,7 @@ class Board
          print ">"
          input = gets.chomp
          inputs3 = input.split
-
-         # human_gets_coordinates_3(inputs3[0], inputs3[1])
          validate_spots_3(inputs3[0], inputs3[1])
-
     end
   end
 
@@ -228,25 +211,24 @@ class Board
   def computer_random_picker_3
       coord_1 = @coordinates.sample
       coord_3 = @coordinates.sample
-      # binding.pry
       comp_validate_3(coord_1, coord_3)
   end
 
-  def vertical?(coordinate_1, coordinate_2, length = 1)
-      c1 = coordinate_1.chars
-      c2 = coordinate_2.chars
-      if ((c2[0].ord - c1[0].ord).abs == length) && c1[1] == c2[1]
-        true
-      end
-  end
-
-  def horizontal?(coordinate_1, coordinate_2, length = 1)
-      c1 = coordinate_1.chars
-      c2 = coordinate_2.chars
-      if (c2[0] == c1[0]) && (c2[1].to_i - c1[1].to_i).abs == length
-        true
-      end
-  end
+  # def vertical?(coordinate_1, coordinate_2, length = 1)
+  #     c1 = coordinate_1.chars
+  #     c2 = coordinate_2.chars
+  #     if ((c2[0].ord - c1[0].ord).abs == length) && c1[1] == c2[1]
+  #       true
+  #     end
+  # end
+  #
+  # def horizontal?(coordinate_1, coordinate_2, length = 1)
+  #     c1 = coordinate_1.chars
+  #     c2 = coordinate_2.chars
+  #     if (c2[0] == c1[0]) && (c2[1].to_i - c1[1].to_i).abs == length
+  #       true
+  #     end
+  # end
 
   def wrap?(coordinate_1, coordinate_2)
       c1 = coordinate_1.chars
@@ -291,4 +273,25 @@ class Board
         end
       end
   end
+
+  def actual_spots?(one, two, three)
+    if @coordinates.include?(one)
+      if @coordinates.include?(two)
+        if @coordinates.include?(three)
+          true
+        end
+      end
+    end
+  end
+
+  def occupied_spots?(one, two, three)
+    if @board[one].occupied?
+      if @board[two].occupied?
+        if @board[three].occupied?
+          true
+        end
+      end
+    end
+  end
+
 end

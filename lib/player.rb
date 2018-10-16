@@ -12,26 +12,11 @@ class Player
   end
 
   def place_ship_2(coordinate_1, coordinate_2)
-
     @player_board.validate_spots_2(coordinate_1, coordinate_2)
-    # if @player_board.board[coordinate_1].occupied? &&
-    #   @player_board.board[coordinate_2].occupied?
-    #   return "Those spots are occupied"
-    #   # @player_board.board[coordinate_1].occupied? == false && @player_board.board[coordinate_2].occupied? == false
-    # else
-    #   @player_board.validate_spots_2(coordinate_1, coordinate_2)
-    # end
   end
 
   def place_ship_3(coordinate_1, coordinate_3)
-
-    # if @player_board.board[coordinate_1].occupied? == false &&
-    #   # @player_board.board[coordinate_2].occupied? == false &&
-    #   @player_board.board[coordinate_3].occupied? == false
-      @player_board.validate_spots_3(coordinate_1, coordinate_3)
-    # else
-    #   "Those spots are occupied"
-    # end
+    @player_board.validate_spots_3(coordinate_1, coordinate_3)
   end
 
   def computer_placement_2
@@ -45,23 +30,12 @@ class Player
   def human_shot(coord)
     @shots << coord
     @player_board.valid_coordinate?(coord)
-    
-      # if @player_board.board[coord].hit_status
-      #   "It's a hit!"
-      # else
-      #   "Its a miss!"
-      # end
   end
 
   def computer_shot
     computer_shot_picker
     @shots << coord
     @player_board.valid_coordinate?(coord)
-      # if @player_board.board[coord].hit_status
-      #   "It's a hit!"
-      # else
-      #   "Its a miss!"
-      # end
   end
 
   def computer_shot_picker
@@ -72,4 +46,5 @@ class Player
       return coord
     end
   end
+
 end
