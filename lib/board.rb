@@ -44,6 +44,7 @@ class Board
 
   def validate_spots_2(coordinate_1, coordinate_2)
    if @coordinates.include?(coordinate_1) && coordinates.include?(coordinate_2)
+
      c1 = coordinate_1.chars
      c2 = coordinate_2.chars
      if (c2[0] == c1[0]) && ((c2[1].to_i - c1[1].to_i).abs == 1)
