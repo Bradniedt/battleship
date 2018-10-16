@@ -23,7 +23,7 @@ class PlayerTest < Minitest::Test
   end
 
   def test_it_can_place_a_three_spot_ship
-    assert_instance_of Ship, @new_player.place_ship_3("A1", "A3")
+    assert_instance_of Ship, @new_player.place_ship_3("A1", "A2", "A3")
   end
 
   def test_it_can_place_random_2_spot_ships_for_computer
@@ -34,13 +34,5 @@ class PlayerTest < Minitest::Test
     assert_instance_of Ship, @new_player.computer_placement_3
   end
 
-  def test_it_can_return_spot_status
-    skip
-    assert_equal 1, @new_player.place_ship_3("A1", "A3")
-  end
-
-  def test_it_can_display_ship_spots
-    assert_equal 1, @new_player.check_ships
-  end
 
 end

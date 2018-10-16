@@ -1,6 +1,5 @@
 require './lib/board'
 require './lib/ship'
-require './lib/spot'
 require './lib/player'
 require 'pry'
 
@@ -57,6 +56,7 @@ class Interface
     human_gets_coordinates_3(inputs3[0], inputs3[1])
     computer_gets_coordinates
     shot_sequence
+    binding.pry
   end
 
   def shot_sequence
@@ -67,6 +67,7 @@ class Interface
     p  "Returning Fire"
     @computer.player_board.display_board
     @human.human_shot(@computer.computer_shot_picker)
+    @human.player_board.display_board
   end
 
   def quit
