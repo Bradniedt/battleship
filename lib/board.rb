@@ -118,29 +118,19 @@ class Board
            @available_coordinates.delete(coordinate_3)
            @big_ship = new_ship
            p "Placed ship!"
-         elsif wrap?(coordinate_1, coordinate_3)
+         elsif ((c3[0].ord - c1[0].ord).abs == (1 || 2)) || ((c1[1].to_i - c3[1].to_i).abs == 3)
            p "Ships can't wrap around the board, pick again."
-           p "Pick your 3 spot ship coordinates:"
-           print ">"
-           input = gets.chomp
-           inputs3 = input.split
-           binding.pry
-           validate_spots_3(inputs3[0], inputs3[1])
+           pick_again_3
+         elsif (((c3[0].ord - c1[0].ord).abs == (1 || 2)) || ((c1[1].to_i - c3[1].to_i).abs == 1))
+           p "Ships can't be placed diagonally, pick again."
+           pick_again_3
          else
            p "I don't know what you did, but pick again."
-           p "Pick your 3 spot ship coordinates:"
-           print ">"
-           input = gets.chomp
-           inputs3 = input.split
-           validate_spots_3(inputs3[0], inputs3[1])
+           pick_again_3
          end
      else
          p "One of your coordinates was invalid, pick again."
-         p "Pick your 3 spot ship coordinates:"
-         print ">"
-         input = gets.chomp
-         inputs3 = input.split
-         validate_spots_3(inputs3[0], inputs3[1])
+         pick_again_3
      end
   end
 
@@ -225,9 +215,7 @@ class Board
   def wrap?(coordinate_1, coordinate_2)
       c1 = coordinate_1.chars
       c2 = coordinate_2.chars
-      if (c2[0].ord - c1[0].ord).abs == 3
-        true
-      elsif c1[1].to_i - c2[1].to_i == 3
+      if ((c2[0].ord - c1[0].ord).abs == 3 || c1[1].to_i - c2[1].to_i == 3)
         true
       else
         false
@@ -286,6 +274,14 @@ class Board
         end
       end
     end
+  end
+
+  def pick_again_3
+    p "Pick your 3 spot ship coordinates:"
+    print ">"
+    input = gets.chomp
+    inputs3 = input.split
+    validate_spots_3(inputs3[0], inputs3[1])
   end
 
 end

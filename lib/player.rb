@@ -68,7 +68,7 @@ class Player
   end
 
   def big_ship_checker
-    if !(@hits > 3)
+    if !(@hits >= 3)
       if @player_board.big_ship.coordinates.all? {|cord| @shots.include?(cord)}
         @hits += 3
         p "You sunk my destroyer space canoe!"
@@ -87,7 +87,8 @@ class Player
 
   def computer_win_check
     if @hits == 5
-      p "The computer won! (You tiny human) It took #{shots.length} shots to win."
+      p "Sorry (not sorry), the computer won!"
+      p "It took #{@shots.length} shots to win."
       true
     else
       false
