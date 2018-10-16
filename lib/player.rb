@@ -9,6 +9,7 @@ class Player
   def initialize
     @player_board = Board.new
     @shots = []
+    @ships = @player_board.player_ships
   end
 
   def place_ship_2(coordinate_1, coordinate_2)
@@ -30,6 +31,7 @@ class Player
   def human_shot(coord)
     @shots << coord
     @player_board.valid_coordinate?(coord)
+    #if it was a hit, need to store that in an array for comparison to ships.
   end
 
   def computer_shot
@@ -45,6 +47,12 @@ class Player
     else
       return coord
     end
+  end
+
+  def check_ships
+    #need to call ships to get ship objects, then need to compare the hits
+    #against the ship coordinates. if both of a ships coordinates are
+    #included in the hits  array, the ship is sunk.
   end
 
 end

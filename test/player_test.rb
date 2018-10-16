@@ -35,8 +35,12 @@ class PlayerTest < Minitest::Test
   end
 
   def test_it_can_return_spot_status
-    binding.pry
+    skip
     assert_equal 1, @new_player.place_ship_3("A1", "A3")
+  end
+
+  def test_it_can_display_ship_spots
+    assert_equal 1, @new_player.check_ships
   end
 
 end
