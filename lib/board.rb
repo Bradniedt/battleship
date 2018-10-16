@@ -8,7 +8,8 @@ class Board
   attr_reader :board,
               :coordinates,
               :computer_ships,
-              :player_ships
+              :small_ship,
+              :big_ship
   def initialize
     @size = 4
     @coordinates = ["A1", "A2", "A3", "A4",
@@ -16,50 +17,50 @@ class Board
                     "C1", "C2", "C3", "C4",
                     "D1", "D2", "D3", "D4"]
     @board = create_board
-    @player_ships = []
+    @small_ship
+    @big_ship
     @computer_ships = []
+    @available_coordinates = ["A1", "A2", "A3", "A4",
+                    "B1", "B2", "B3", "B4",
+                    "C1", "C2", "C3", "C4",
+                    "D1", "D2", "D3", "D4"]
   end
 
   def create_board
     board = {}
     @coordinates.map do |name|
-      board["#{name}"] = Spot.new(name)
+      board["#{name}"] = " "
     end
     board
   end
 
   def display_board
-    value = @board.values
-    content = value.map do |spot|
-    spot.contents
-    end
+    board_spots = @board.values
+
     puts "==========="
     puts ". 1 2 3 4"
-    puts "A #{content.values_at(0,1,2,3).join(" ")}"
-    puts "B #{content.values_at(4,5,6,7).join(" ")}"
-    puts "C #{content.values_at(8,9,10,11).join(" ")}"
-    puts "D #{content.values_at(12,13,14,15).join(" ")}"
+    puts "A #{board_spots.values_at(0,1,2,3).join(" ")}"
+    puts "B #{board_spots.values_at(4,5,6,7).join(" ")}"
+    puts "C #{board_spots.values_at(8,9,10,11).join(" ")}"
+    puts "D #{board_spots.values_at(12,13,14,15).join(" ")}"
     puts "==========="
   end
 
   def validate_spots_2(coordinate_1, coordinate_2)
    if @coordinates.include?(coordinate_1) && coordinates.include?(coordinate_2)
-
      c1 = coordinate_1.chars
      c2 = coordinate_2.chars
      if (c2[0] == c1[0]) && ((c2[1].to_i - c1[1].to_i).abs == 1)
-       new_ship = Ship.new(coordinate_1, coordinate_2)
-       @board[coordinate_1].occupy
-       @board[coordinate_2].occupy
-       @player_ships << new_ship
-       new_ship
+       new_ship = Ship.new([coordinate_1, coordinate_2])
+       @available_coordinates.delete(coordinate_1)
+       @available_coordinates.delete(coordinate_2)
+       @small_ship = new_ship
        p "Placed ship!"
      elsif  ((c2[0].ord - c1[0].ord).abs == 1) && c1[1] == c2[1]
-       new_ship = Ship.new(coordinate_1, coordinate_2)
-       @board[coordinate_1].occupy
-       @board[coordinate_2].occupy
-       @player_ships << new_ship
-       new_ship
+       new_ship = Ship.new([coordinate_1, coordinate_2])
+       @available_coordinates.delete(coordinate_1)
+       @available_coordinates.delete(coordinate_2)
+       @small_ship = new_ship
        p "Placed ship!"
      elsif ((c2[0].ord - c1[0].ord).abs == 3 || c1[1].to_i - c2[1].to_i == 3)
        p "Ships can't wrap around the board, pick again."
@@ -91,32 +92,30 @@ class Board
        input = gets.chomp
        inputs2 = input.split
        validate_spots_2(inputs2[0], inputs2[1])
-    end
+   end
   end
 
   def validate_spots_3(coordinate_1, coordinate_3)
     coordinate_2 = find_coord_2(coordinate_1, coordinate_3)
      if actual_spots?(coordinate_1, coordinate_2, coordinate_3) &&
-       !((@board[coordinate_1].occupied? && @board[coordinate_2].occupied?) && @board[coordinate_3].occupied?)
+       available_spots?(coordinate_1, coordinate_2, coordinate_3)
        c1 = coordinate_1.chars
        c3 = coordinate_3.chars
          if (c3[0] == c1[0]) && ((c3[1].to_i - c1[1].to_i).abs == 2)
            coord_2 = find_coord_2(coordinate_1, coordinate_3)
-           new_ship = Ship.new(coordinate_1, coordinate_3)
-           @board[coordinate_1].occupy
-           @board[coord_2].occupy
-           @board[coordinate_3].occupy
-           @player_ships << new_ship
-           new_ship
+           new_ship = Ship.new([coordinate_1, coordinate_2, coordinate_3])
+           @available_coordinates.delete(coordinate_1)
+           @available_coordinates.delete(coordinate_2)
+           @available_coordinates.delete(coordinate_3)
+           @big_ship = new_ship
            p "Placed ship!"
          elsif  ((c3[0].ord - c1[0].ord).abs == 2) && c1[1] == c3[1]
            coord_2 = find_coord_2(coordinate_1, coordinate_3)
-           new_ship = Ship.new(coordinate_1, coordinate_3)
-           @board[coordinate_1].occupy
-           @board[coord_2].occupy
-           @board[coordinate_3].occupy
-           @player_ships << new_ship
-           new_ship
+           new_ship = Ship.new([coordinate_1, coordinate_2, coordinate_3])
+           @available_coordinates.delete(coordinate_1)
+           @available_coordinates.delete(coordinate_2)
+           @available_coordinates.delete(coordinate_3)
+           @big_ship = new_ship
            p "Placed ship!"
          elsif wrap?(coordinate_1, coordinate_3)
            p "Ships can't wrap around the board, pick again."
@@ -141,7 +140,7 @@ class Board
          input = gets.chomp
          inputs3 = input.split
          validate_spots_3(inputs3[0], inputs3[1])
-    end
+     end
   end
 
   def comp_validate_2(coordinate_1, coordinate_2)
@@ -150,16 +149,16 @@ class Board
        c2 = coordinate_2.chars
      end
      if ((c2[0].ord - c1[0].ord).abs == 1) && c1[1] == c2[1]
-       new_ship = Ship.new(coordinate_1, coordinate_2)
-       @board[coordinate_1].occupy
-       @board[coordinate_2].occupy
-       @computer_ships << new_ship
+       new_ship = Ship.new([coordinate_1, coordinate_2])
+       @available_coordinates.delete(coordinate_1)
+       @available_coordinates.delete(coordinate_2)
+       @small_ship = new_ship
        new_ship
      elsif  (c2[0] == c1[0]) && ((c2[1].to_i - c1[1].to_i).abs == 1)
-       new_ship = Ship.new(coordinate_1, coordinate_2)
-       @board[coordinate_1].occupy
-       @board[coordinate_2].occupy
-       @computer_ships << new_ship
+       new_ship = Ship.new([coordinate_1, coordinate_2])
+       @available_coordinates.delete(coordinate_1)
+       @available_coordinates.delete(coordinate_2)
+       @small_ship = new_ship
        new_ship
      else
        computer_random_picker_2
@@ -167,34 +166,37 @@ class Board
   end
 
   def comp_validate_3(coordinate_1, coordinate_3)
-      if @coordinates.include?(coordinate_1) && @coordinates.include?(coordinate_3) &&
-        !(@board[coordinate_1].occupied? && @board[coordinate_3].occupied?)
+    coordinate_2 = find_coord_2(coordinate_1, coordinate_3)
+      if (@coordinates.include?(coordinate_1) && @coordinates.include?(coordinate_3)) &&
+         ((@available_coordinates.include?(coordinate_1) &&
+         @available_coordinates.include?(coordinate_2)) &&
+         @available_coordinates.include?(coordinate_3))
          c1 = coordinate_1.chars
          c3 = coordinate_3.chars
           if ((c3[0].ord - c1[0].ord).abs == 2) && c1[1].to_i == c3[1].to_i
-           coord_2 = find_coord_2(coordinate_1, coordinate_3)
-            if @board[coord_2].occupied?
+            coord_2 = find_coord_2(coordinate_1, coordinate_3)
+            if !(@available_coordinates.include?(coord_2))
                return computer_random_picker_3
             else
-            new_ship = Ship.new(coordinate_1, coordinate_3)
-            @board[coordinate_1].occupy
-            @board[coord_2].occupy
-            @board[coordinate_3].occupy
-            @computer_ships << new_ship
+            new_ship = Ship.new([coordinate_1, coordinate_2, coordinate_3])
+            @available_coordinates.delete(coordinate_1)
+            @available_coordinates.delete(coordinate_2)
+            @available_coordinates.delete(coordinate_3)
+            @big_ship = new_ship
             new_ship
             end
           elsif  (c3[0] == c1[0]) && ((c3[1].to_i - c1[1].to_i).abs == 2)
-           coord_2 = find_coord_2(coordinate_1, coordinate_3)
-             if @board[coord_2].occupied?
-                return computer_random_picker_3
-             else
-               new_ship = Ship.new(coordinate_1, coordinate_3)
-               @board[coordinate_1].occupy
-               @board[coord_2].occupy
-               @board[coordinate_3].occupy
-               @computer_ships << new_ship
-               new_ship
-             end
+            coord_2 = find_coord_2(coordinate_1, coordinate_3)
+            if !(@available_coordinates.include?(coord_2))
+               return computer_random_picker_3
+            else
+              new_ship = Ship.new([coordinate_1, coordinate_2, coordinate_3])
+              @available_coordinates.delete(coordinate_1)
+              @available_coordinates.delete(coordinate_2)
+              @available_coordinates.delete(coordinate_3)
+              @big_ship = new_ship
+              new_ship
+            end
           else
             computer_random_picker_3
           end
@@ -210,26 +212,10 @@ class Board
   end
 
   def computer_random_picker_3
-      coord_1 = @coordinates.sample
-      coord_3 = @coordinates.sample
+      coord_1 = @available_coordinates.sample
+      coord_3 = @available_coordinates.sample
       comp_validate_3(coord_1, coord_3)
   end
-
-  # def vertical?(coordinate_1, coordinate_2, length = 1)
-  #     c1 = coordinate_1.chars
-  #     c2 = coordinate_2.chars
-  #     if ((c2[0].ord - c1[0].ord).abs == length) && c1[1] == c2[1]
-  #       true
-  #     end
-  # end
-  #
-  # def horizontal?(coordinate_1, coordinate_2, length = 1)
-  #     c1 = coordinate_1.chars
-  #     c2 = coordinate_2.chars
-  #     if (c2[0] == c1[0]) && (c2[1].to_i - c1[1].to_i).abs == length
-  #       true
-  #     end
-  # end
 
   def wrap?(coordinate_1, coordinate_2)
       c1 = coordinate_1.chars
@@ -243,12 +229,12 @@ class Board
       end
   end
 
-  def valid_coordinate?(coord)
+  def take_shot(coord)
       if @coordinates.include?(coord)
-          if @board["#{coord}"].occupied?
-            @board["#{coord}"].hit
+          if @available_coordinates.include?(coord)
+            @board["#{coord}"] = "M"
           else
-            @board["#{coord}"].miss
+            @board["#{coord}"] = "H"
           end
       else
         false
@@ -285,10 +271,20 @@ class Board
     end
   end
 
-  def occupied_spots?(one, two, three)
-    if @board[one].occupied?
-      if @board[two].occupied?
-        if @board[three].occupied?
+  # def occupied_spots?(one, two, three)
+  #   if @board[one].occupied?
+  #     if @board[two].occupied?
+  #       if @board[three].occupied?
+  #         true
+  #       end
+  #     end
+  #   end
+  # end
+
+  def available_spots?(one, two, three)
+    if @available_coordinates.include?(one)
+      if @available_coordinates.include?(two)
+        if @available_coordinates.include?(three)
           true
         end
       end
