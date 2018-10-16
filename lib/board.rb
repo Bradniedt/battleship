@@ -60,15 +60,15 @@ class Board
        @player_ships << new_ship
        new_ship
        p "Placed ship!"
-     elsif wrap?(coordinate_1, coordinate_2)
+     elsif ((c2[0].ord - c1[0].ord).abs == 3 || c1[1].to_i - c2[1].to_i == 3)
        p "Ships can't wrap around the board, pick again."
        p "Pick your 2 spot ship coordinates:"
        print ">"
        input = gets.chomp
        inputs2 = input.split
        validate_spots_2(inputs2[0], inputs2[1])
-     elsif !(vertical?(coordinate_1, coordinate_2)) &&
-       !(horizontal?(coordinate_1, coordinate_2))
+     elsif !(((c2[0].ord - c1[0].ord).abs == 1) && c1[1] == c2[1]) &&
+       !((c2[0] == c1[0]) && ((c2[1].to_i - c1[1].to_i).abs == 1))
        p "Diagonal placement not allowed, pick again."
        p "Pick your 2 spot ship coordinates:"
        print ">"
