@@ -31,9 +31,18 @@ class InterfaceTest < Minitest::Test
     assert_equal "It's a hit!", new_interface.play
   end
   def test_it_can_get_spot_messages
+    skip
     new_interface = Interface.new
     binding.pry
     assert_equal "It's a hit!", new_interface.play
+  end
+
+  def test_it_can_end_game
+    new_interface = Interface.new
+    new_interface.computer.hits = 5
+    new_interface.computer.shots = ["A1", "B2", "B1", "C2", "D2"]
+    expected = "Thanks for playing!"
+    assert_equal expected, new_interface.shot_sequence
   end
 
 end

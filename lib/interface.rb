@@ -33,10 +33,11 @@ class Interface
     puts "Battleship is a game of blind guesses and educated guesses."
     puts "You will begin by placing two ships on the grid. You place a ship"
     puts "by typing in the coordinates for its bow and stern like this : A1 B1."
-    puts "You will have two ships - one is two spaces long, and the other is three"
-    puts "spaces long. You will place both using two coordinates."
+    puts "You will have two ships - one is two spaces long (battleship), and"
+    puts "the other is three spaces long (destroyer space canoe). "
     puts "After the ships are placed, you can start taking turns at placing"
-    puts "shots with the computer. After each shot, you will get a message telling you"
+    puts "shots with the computer. Enter a shot by calling the coordinate letter and number."
+    puts  "After each shot, you will get a message telling you"
     puts "that it was a hit or a miss."
     puts "Once all of one player's ship coordinates have been hit, the game is over."
     puts "Have fun!"
@@ -60,18 +61,39 @@ class Interface
   end
 
   def shot_sequence
-    @computer.player_board.display_board
-    p "Choose a coordinate to shoot upon!"
-    shot_input = gets.chomp
-    @computer.human_shot(shot_input)
-    p  "Returning Fire"
-    @computer.player_board.display_board
-    @human.human_shot(@computer.computer_shot_picker)
-    @human.player_board.display_board
+    until (@computer.human_win_check || @human.computer_win_check)
+      @computer.player_board.display_board
+      p "Choose a coordinate to shoot upon!"
+      shot_input = gets.chomp
+      @computer.human_shot(shot_input, "You")
+      @computer.player_board.display_board
+      @computer.check_ships
+      p "End your turn by pressing ENTER"
+      p ">"
+      input = gets
+      enter(input)
+      @computer.human_win_check
+      p  "Returning Fire! Beep boop beep..."
+      @human.human_shot(@computer.computer_shot_picker, "The Computer")
+      @human.player_board.display_board
+      @human.check_ships
+      @human.computer_win_check
+      shot_sequence
+    end
+    quit
   end
 
   def quit
+    p "Thanks for playing!"
+  end
 
+  def enter(input)
+    if input != "\n"
+      p "End your turn by pressing ENTER!!!!!"
+      p ">"
+      input = gets
+      enter(input)
+    end
   end
 
   def human_gets_coordinates_2(coordinate_1, coordinate_2)
