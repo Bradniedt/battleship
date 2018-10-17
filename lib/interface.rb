@@ -67,7 +67,7 @@ class Interface
     @computer.player_board.display_board
     p "Choose a coordinate to shoot upon!"
     shot_input = gets.chomp
-    @computer.human_shot(shot_input, "You")
+    @computer.human_shot(shot_input.upcase!, "You")
     @computer.player_board.display_board
     @computer.check_ships
     p "End your turn by pressing ENTER"
