@@ -34,12 +34,12 @@ class Interface
   def read_instructions
     puts "Battleship is a game of blind guesses and educated guesses."
     puts "You will begin by placing two ships on the grid. You place a ship"
-    puts "by typing in the coordinates for its bow and stern like this : A1 B1."
+    puts "by typing in the coordinates separated by a space for its bow and stern like this : A1 B1."
     puts "You will have two ships - one is two spaces long (battleship), and"
     puts "the other is three spaces long (destroyer space canoe). "
     puts "After the ships are placed, you can start taking turns at placing"
     puts "shots with the computer. Enter a shot by calling the coordinate letter and number."
-    puts  "After each shot, you will get a message telling you"
+    puts "After each shot, you will get a message telling you"
     puts "that it was a hit or a miss."
     puts "Once all of one player's ship coordinates have been hit, the game is over."
     puts "Have fun!"
@@ -67,7 +67,8 @@ class Interface
     @computer.player_board.display_board
     p "Choose a coordinate to shoot upon!"
     shot_input = gets.chomp
-    @computer.human_shot(shot_input.upcase!, "You")
+    shot_input.upcase!
+    @computer.human_shot(shot_input, "You")
     @computer.player_board.display_board
     @computer.check_ships
     p "End your turn by pressing ENTER"

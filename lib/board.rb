@@ -97,6 +97,7 @@ class Board
 
   def validate_spots_3(coordinate_1, coordinate_3)
     coordinate_2 = find_coord_2(coordinate_1, coordinate_3)
+    binding.pry
      if actual_spots?(coordinate_1, coordinate_2, coordinate_3) &&
        available_spots?(coordinate_1, coordinate_2, coordinate_3)
        c1 = coordinate_1.chars
