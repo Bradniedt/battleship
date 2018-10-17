@@ -8,6 +8,4 @@ class Ship
   def initialize(array)
     @coordinates = array
   end
-
-
 end
