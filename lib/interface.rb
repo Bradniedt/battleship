@@ -84,7 +84,7 @@ class Interface
 
 
   def turn_sequence_loop
-    until (@human.computer_win_check || @computer.human_win_check)
+    while (@human.computer_win_check == false && @computer.human_win_check == false)
       shot_sequence
     end
     @end_time = Time.now
