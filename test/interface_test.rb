@@ -52,5 +52,5 @@ class InterfaceTest < Minitest::Test
     expected = "Thanks for playing!"
     assert_equal expected, new_interface.shot_sequence
   end
-
+  
 end

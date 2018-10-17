@@ -102,28 +102,19 @@ class Board
        c1 = coordinate_1.chars
        c3 = coordinate_3.chars
          if (c3[0] == c1[0]) && ((c3[1].to_i - c1[1].to_i).abs == 2)
-           coord_2 = find_coord_2(coordinate_1, coordinate_3)
            new_ship = Ship.new([coordinate_1, coordinate_2, coordinate_3])
            @available_coordinates.delete(coordinate_1)
            @available_coordinates.delete(coordinate_2)
            @available_coordinates.delete(coordinate_3)
            @big_ship = new_ship
-           new_ship
            p "Placed ship!"
          elsif  ((c3[0].ord - c1[0].ord).abs == 2) && c1[1] == c3[1]
-           coord_2 = find_coord_2(coordinate_1, coordinate_3)
            new_ship = Ship.new([coordinate_1, coordinate_2, coordinate_3])
            @available_coordinates.delete(coordinate_1)
            @available_coordinates.delete(coordinate_2)
            @available_coordinates.delete(coordinate_3)
            @big_ship = new_ship
            p "Placed ship!"
-         elsif ((c3[0].ord - c1[0].ord).abs == (1 || 2)) || ((c1[1].to_i - c3[1].to_i).abs == 3)
-           p "Ships can't wrap around the board, pick again."
-           pick_again_3
-         elsif (((c3[0].ord - c1[0].ord).abs == (1 || 2)) || ((c1[1].to_i - c3[1].to_i).abs == 1))
-           p "Ships can't be placed diagonally, pick again."
-           pick_again_3
          else
            p "I don't know what you did, but pick again."
            pick_again_3
@@ -159,7 +150,7 @@ class Board
   end
 
   def comp_validate_3(coordinate_1, coordinate_3)
-    coordinate_2 = find_coord_2(coordinate_1, coordinate_3)
+    coordinate_2 = find_coord_2_comp(coordinate_1, coordinate_3)
       if (@coordinates.include?(coordinate_1) && @coordinates.include?(coordinate_3)) &&
          ((@available_coordinates.include?(coordinate_1) &&
          @available_coordinates.include?(coordinate_2)) &&
@@ -167,7 +158,7 @@ class Board
          c1 = coordinate_1.chars
          c3 = coordinate_3.chars
           if ((c3[0].ord - c1[0].ord).abs == 2) && c1[1].to_i == c3[1].to_i
-            coord_2 = find_coord_2(coordinate_1, coordinate_3)
+            coord_2 = find_coord_2_comp(coordinate_1, coordinate_3)
             if !(@available_coordinates.include?(coord_2))
                return computer_random_picker_3
             else
@@ -180,7 +171,7 @@ class Board
             new_ship
             end
           elsif  (c3[0] == c1[0]) && ((c3[1].to_i - c1[1].to_i).abs == 2)
-            coord_2 = find_coord_2(coordinate_1, coordinate_3)
+            coord_2 = find_coord_2_comp(coordinate_1, coordinate_3)
             if !(@available_coordinates.include?(coord_2))
                return computer_random_picker_3
             else
@@ -252,14 +243,37 @@ class Board
       elsif c1[0].ord < c3[0].ord
         if c1[1].to_i == c3[1].to_i
             return "#{c1[0].next}#{c3[1]}"
+        else
+          p "Diagonal placement is not allowed, pick again."
+          pick_again_3
+        end
+      end
+  end
+
+  def find_coord_2_comp(coordinate_1, coordinate_3)
+      c1 = coordinate_1.chars
+      c3 = coordinate_3.chars
+      if c1[0].ord == c3[0].ord
+          if c1[1].to_i > c3[1].to_i
+            return "#{c3[0]}#{c3[1].to_i + 1}"
+          elsif c1[1].to_i < c3[1].to_i
+            return "#{c1[0]}#{c1[1].to_i + 1}"
+          end
+      elsif c1[0].ord > c3[0].ord
+          if c1[1].to_i == c3[1].to_i
+            return "#{c3[0].next}#{c3[1]}"
+          end
+      elsif c1[0].ord < c3[0].ord
+        if c1[1].to_i == c3[1].to_i
+            return "#{c1[0].next}#{c3[1]}"
         end
       end
   end
 
   def actual_spots?(one, two, three)
-    if @coordinates.include?(one)
-      if @coordinates.include?(two)
-        if @coordinates.include?(three)
+    if @coordinates.include?(one.upcase)
+      if @coordinates.include?(two.upcase)
+        if @coordinates.include?(three.upcase)
           true
         end
       end
@@ -267,9 +281,9 @@ class Board
   end
 
   def available_spots?(one, two, three)
-    if @available_coordinates.include?(one)
-      if @available_coordinates.include?(two)
-        if @available_coordinates.include?(three)
+    if @available_coordinates.include?(one.upcase)
+      if @available_coordinates.include?(two.upcase)
+        if @available_coordinates.include?(three.upcase)
           true
         end
       end

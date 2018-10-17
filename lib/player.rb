@@ -54,30 +54,25 @@ class Player
   end
 
   def check_ships
-    small_ship_checker
-    big_ship_checker
+      small_ship_checker
+      big_ship_checker
   end
 
   def small_ship_checker
-    if !(@hits > 4)
       if @player_board.small_ship.coordinates.all? {|cord| @shots.include?(cord)}
-        @hits += 2
         p "You sunk my battleship!"
       end
-    end
   end
 
   def big_ship_checker
-    if !(@hits >= 3)
-      if @player_board.big_ship.coordinates.all? {|cord| @shots.include?(cord)}
-        @hits += 3
-        p "You sunk my destroyer space canoe!"
-      end
+    if @player_board.big_ship.coordinates.all? {|cord| @shots.include?(cord)}
+      p "You sunk my destroyer space canoe!"
     end
   end
 
   def human_win_check
-    if @hits == 5
+    if (@player_board.small_ship.coordinates.all? {|cord| @shots.include?(cord)} &&
+      @player_board.big_ship.coordinates.all? {|cord| @shots.include?(cord)})
       p "You won! It took #{shots.length} shots to win."
       true
     else
@@ -86,7 +81,8 @@ class Player
   end
 
   def computer_win_check
-    if @hits == 5
+    if (@player_board.small_ship.coordinates.all? {|cord| @shots.include?(cord)} &&
+      @player_board.big_ship.coordinates.all? {|cord| @shots.include?(cord)})
       p "Sorry (not sorry), the computer won!"
       p "It took #{@shots.length} shots to win."
       true

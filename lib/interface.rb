@@ -67,7 +67,7 @@ class Interface
     @computer.player_board.display_board
     p "Choose a coordinate to shoot upon!"
     shot_input = gets.chomp
-    @computer.human_shot(shot_input, "You")
+    @computer.human_shot(shot_input.upcase!, "You")
     @computer.player_board.display_board
     @computer.check_ships
     p "End your turn by pressing ENTER"
@@ -84,7 +84,7 @@ class Interface
 
 
   def turn_sequence_loop
-    until (@human.computer_win_check || @computer.human_win_check)
+    while (@human.computer_win_check == false && @computer.human_win_check == false)
       shot_sequence
     end
     @end_time = Time.now

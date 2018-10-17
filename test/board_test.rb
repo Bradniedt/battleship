@@ -115,4 +115,8 @@ D
   def test_it_can_find_middle_coordinate
     assert_equal "A2", @board_one.find_coord_2("A1", "A3")
   end
+
+  def test_it_can_verify_coordinates_exist
+    assert @board_one.available_spots("D1", "D2", "D3")
+  end
 end
