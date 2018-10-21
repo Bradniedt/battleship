@@ -51,69 +51,46 @@ class Board
      c2 = coordinate_2.chars
      if (c2[0] == c1[0]) && ((c2[1].to_i - c1[1].to_i).abs == 1)
        new_ship = Ship.new([coordinate_1, coordinate_2])
-       @available_coordinates.delete(coordinate_1)
-       @available_coordinates.delete(coordinate_2)
+       delete_available_spots([coordinate_1, coordinate_2])
        @small_ship = new_ship
        p "Placed ship!"
      elsif  ((c2[0].ord - c1[0].ord).abs == 1) && (c1[1] == c2[1])
        new_ship = Ship.new([coordinate_1, coordinate_2])
-       @available_coordinates.delete(coordinate_1)
-       @available_coordinates.delete(coordinate_2)
+       delete_available_spots([coordinate_1, coordinate_2])
        @small_ship = new_ship
        p "Placed ship!"
      elsif ((c2[0].ord - c1[0].ord).abs == 3 || c1[1].to_i - c2[1].to_i == 3)
        p "Ships can't wrap around the board, pick again."
-       p "Pick your 2 spot ship coordinates:"
-       print ">"
-       input = gets.chomp
-       inputs2 = input.split
-       validate_spots_2(inputs2[0], inputs2[1])
+       pick_again_2
      elsif (((c2[0].ord - c1[0].ord).abs == 1) && (c1[1] == c2[1])) ||
        (((c2[0].ord - c1[0].ord).abs == 3) && (c1[1]== c2[1]))
        # !((c2[0] == c1[0]) && ((c2[1].to_i - c1[1].to_i).abs == 1))
        p "Diagonal placement not allowed, pick again."
-       p "Pick your 2 spot ship coordinates:"
-       print ">"
-       input = gets.chomp
-       inputs2 = input.split
-       validate_spots_2(inputs2[0], inputs2[1])
+       pick_again_2
      else
        p "I don't know what you did, but pick again."
-       p "Pick your 2 spot ship coordinates:"
-       print ">"
-       input = gets.chomp
-       inputs2 = input.split
-       validate_spots_2(inputs2[0], inputs2[1])
+       pick_again_2
      end
     else
        p  "One of your coordinates was invalid, pick again."
-       p "Pick your 2 spot ship coordinates:"
-       print ">"
-       input = gets.chomp
-       inputs2 = input.split
-       validate_spots_2(inputs2[0], inputs2[1])
+       rpick_again_2
    end
   end
 
   def validate_spots_3(coordinate_1, coordinate_3)
     coordinate_2 = find_coord_2(coordinate_1, coordinate_3)
-    binding.pry
      if actual_spots?(coordinate_1, coordinate_2, coordinate_3) &&
        available_spots?(coordinate_1, coordinate_2, coordinate_3)
        c1 = coordinate_1.chars
        c3 = coordinate_3.chars
          if (c3[0] == c1[0]) && ((c3[1].to_i - c1[1].to_i).abs == 2)
            new_ship = Ship.new([coordinate_1, coordinate_2, coordinate_3])
-           @available_coordinates.delete(coordinate_1)
-           @available_coordinates.delete(coordinate_2)
-           @available_coordinates.delete(coordinate_3)
+           delete_available_spots([coordinate_1, coordinate_2, coordinate_3])
            @big_ship = new_ship
            p "Placed ship!"
          elsif  ((c3[0].ord - c1[0].ord).abs == 2) && c1[1] == c3[1]
            new_ship = Ship.new([coordinate_1, coordinate_2, coordinate_3])
-           @available_coordinates.delete(coordinate_1)
-           @available_coordinates.delete(coordinate_2)
-           @available_coordinates.delete(coordinate_3)
+           delete_available_spots([coordinate_1, coordinate_2, coordinate_3])
            @big_ship = new_ship
            p "Placed ship!"
          else
@@ -133,15 +110,13 @@ class Board
      end
      if ((c2[0].ord - c1[0].ord).abs == 1) && c1[1] == c2[1]
        new_ship = Ship.new([coordinate_1, coordinate_2])
-       @available_coordinates.delete(coordinate_1)
-       @available_coordinates.delete(coordinate_2)
+       delete_available_spots([coordinate_1, coordinate_2])
        @small_ship = new_ship
        @computer_ships << @small_ship
        new_ship
      elsif  (c2[0] == c1[0]) && ((c2[1].to_i - c1[1].to_i).abs == 1)
        new_ship = Ship.new([coordinate_1, coordinate_2])
-       @available_coordinates.delete(coordinate_1)
-       @available_coordinates.delete(coordinate_2)
+       delete_available_spots([coordinate_1, coordinate_2])
        @small_ship = new_ship
        @computer_ships << @small_ship
        new_ship
@@ -164,9 +139,7 @@ class Board
                return computer_random_picker_3
             else
             new_ship = Ship.new([coordinate_1, coordinate_2, coordinate_3])
-            @available_coordinates.delete(coordinate_1)
-            @available_coordinates.delete(coordinate_2)
-            @available_coordinates.delete(coordinate_3)
+            delete_available_spots([coordinate_1, coordinate_2, coordinate_3])
             @big_ship = new_ship
             @computer_ships << @big_ship
             new_ship
@@ -177,9 +150,7 @@ class Board
                return computer_random_picker_3
             else
               new_ship = Ship.new([coordinate_1, coordinate_2, coordinate_3])
-              @available_coordinates.delete(coordinate_1)
-              @available_coordinates.delete(coordinate_2)
-              @available_coordinates.delete(coordinate_3)
+              delete_available_spots([coordinate_1, coordinate_2, coordinate_3])
               @big_ship = new_ship
               @computer_ships << @big_ship
               new_ship
@@ -297,6 +268,20 @@ class Board
     input = gets.chomp
     inputs3 = input.split
     validate_spots_3(inputs3[0], inputs3[1])
+  end
+
+  def delete_available_spots(array)
+    array.map do |coord|
+      @available_coordinates.delete(coord)
+    end
+  end
+
+  def pick_again_2
+    p "Pick your 2 spot ship coordinates:"
+    print ">"
+    input = gets.chomp
+    inputs2 = input.split
+    validate_spots_2(inputs2[0], inputs2[1])
   end
 
 end

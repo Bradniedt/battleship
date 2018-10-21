@@ -93,13 +93,6 @@ class Interface
     quit
   end
 
-
-
-
-
-
-
-
   def quit
     p "Thanks for playing!"
   end
